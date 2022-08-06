@@ -1,9 +1,11 @@
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Avatar, Input, Button, Overlay } from 'react-native-elements'
 import Styles from './Styles';
 import { FONTS, SIZES, assets } from '../../constants';
 import {Dropdown} from 'react-native-element-dropdown';
+
+import Home from '../../screens/Home';
 
 const Authentication = () => {
 
@@ -13,6 +15,9 @@ const Authentication = () => {
     {label: 'Carrier', value: '3'},
     {label: 'Administrator', value: '4'},
   ]
+
+  const [dropdown, setDropdown] = useState(null);
+  const [selected, setSelected] = useState([]);
 
   return (
     <SafeAreaView>
@@ -53,11 +58,35 @@ const Authentication = () => {
         onChangeText={() => { }}
       />
 
+      <View style={{flexDirection:"row", marginTop: 10, marginBottom: 10}}>
+      
+      <Button 
+        title="Sign in" 
+        type="solid" 
+        titleStyle={{ fontWeight: '700' }}
+        buttonStyle={{
+          backgroundColor: "rgba(199, 43, 98, 1)",
+          borderColor: 'transparent',
+          borderWidth: 0,
+          borderRadius: 30,
+        }}
+        containerStyle={{
+          width: 100,
+          marginRight: 50
+        }}
+        onPress={() => navigation.navigate('Home')}
+        />
+
       <Dropdown 
+      style={Styles.dropdown}
       data={roles}
       labelField="label"
       valueField="value"
+      placeholder="Select a role"
+      value={dropdown}
+      onChange={item => setDropdown(item.value)}
       />
+      </View>
       </Card>
       
       </ScrollView>

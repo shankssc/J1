@@ -43,6 +43,13 @@ const styles = StyleSheet.create({
         borderRadius: "20px",
         overflow: "hidden",
         backgroundColor: "#fc3dd0"
+    },
+
+    dropdown: {
+        borderBottomColor: 'gray',
+        marginTop: 10,
+        marginBottom: 10,
+        
     }
 })
 
