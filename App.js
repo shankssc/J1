@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 
 import Home from './screens/Home'
 import FrontPage from './screens/FrontPage';
+import Auth from './screens/Auth'
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const App = () => {
        initialRouteName="FrontPage">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FrontPage" component={FrontPage} />
+        <Stack.Screen name="Auth" component={Auth} />
       </Stack.Navigator>
     </NavigationContainer>
   );

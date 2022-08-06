@@ -1,9 +1,10 @@
-import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { COLORS, assets } from '../constants'
 import { Button } from 'react-native-elements'
+import Auth from '../screens/Auth'
 
-const FrontPage = () => {
+const FrontPage = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{
       width: "100%",
@@ -34,8 +35,24 @@ const FrontPage = () => {
         justifyContent: 'center',
         alignItems: 'center'
         }}>
-      <Button type="solid">
-      </Button>
+      <Button 
+        title="Get Started" 
+        type="solid" 
+        titleStyle={{ fontWeight: '700' }}
+        buttonStyle={{
+          backgroundColor: "rgba(199, 43, 98, 1)",
+          borderColor: 'transparent',
+          borderWidth: 0,
+          borderRadius: 30,
+        }}
+        containerStyle={{
+          width: 150,
+          marginHorizontal: 50,
+          marginVertical: 10,
+        }}
+        onPress={() => navigation.navigate('Auth')}
+        />
+        
       </View>
       </View>
     </SafeAreaView>

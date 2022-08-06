@@ -20,6 +20,7 @@ import person04 from "../assets/images/person04.png";
 
 import inapp from "../assets/images/inapp.png";
 import outapp from "../assets/images/outapp.png";
+import kotaco from "../assets/images/kotaco.png"
 
 export default {
   badge,
@@ -43,5 +44,6 @@ export default {
   person04,
 
   inapp,
-  outapp
+  outapp,
+  kotaco
 };
