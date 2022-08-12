@@ -1,6 +1,6 @@
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Image, ScrollView, Switch } from 'react-native'
 import React, { useState } from 'react'
-import { Card, Avatar, Input, Button, Overlay } from 'react-native-elements'
+import { Card, Avatar, Input, Button, Overlay  } from 'react-native-elements'
 import Styles from './Styles';
 import { FONTS, SIZES, assets } from '../../constants';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -16,8 +16,14 @@ const Authentication = () => {
     {label: 'Administrator', value: '4'},
   ]
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
   const [dropdown, setDropdown] = useState(null);
   const [selected, setSelected] = useState([]);
+
+  const toggleSwitch = () =>{
+    setIsSignup(isSignup => !isSignup)
+  }
 
   return (
     <SafeAreaView>
@@ -35,7 +41,18 @@ const Authentication = () => {
         overflow: "hidden"
       }}>
       
-      <Card.Title>Sign up</Card.Title>
+      <Card.Title>{isSignup?'Sign up': 'Sign in'}</Card.Title>
+
+      <View style={{
+        marginLeft: "250px",
+        overflow: "hidden"
+      }}>
+      <Switch
+      
+      onValueChange={toggleSwitch}
+      value={isSignup}
+      />
+      </View>
 
       <TextInput
         placeholder=' userame'

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
 
     dropdown: {
-        borderBottomColor: 'gray',
+        
         marginTop: 10,
         marginBottom: 10,
         
