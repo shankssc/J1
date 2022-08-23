@@ -27,7 +27,7 @@ const User = `
     }
 
     type Mutation {
-        signup(username: String!, email: String!, password: String!): String!,
+        signup(username: String!, email: String!, password: String!, role: Role!): String!,
 
         login(email: String, username: String, password: String!): Token!
     }

@@ -28,6 +28,18 @@ const InitServer = async () => {
         res.send("Apollo express server is up and running");
     });
 
+    try {
+        await mongoose.connect(process.env.CONNECTION_URL,{
+            useNewUrlParser: true, 
+            useUnifiedTopology: true
+        })
+    
+        console.log('Mongoose connection was successful');
+            
+    } catch (error) {
+        console.log(error.message)   
+    }
+
     app.listen(process.env.PORT || 3000, () => console.log("Server is running sucessfully"));
 }
 

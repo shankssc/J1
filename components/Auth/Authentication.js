@@ -17,7 +17,7 @@ const Authentication = () => {
   ]
 
   const [showPassword, setShowPassword] = useState(false);
-  const [isSignup, setIsSignup] = useState(false);
+  const [isSignup, setIsSignup] = useState(true);
   const [dropdown, setDropdown] = useState(null);
   const [selected, setSelected] = useState([]);
 

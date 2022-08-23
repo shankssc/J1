@@ -16,16 +16,19 @@ export default {
     },
 
     Mutation: {
-        signup: async (_, { email, username, password }) => {
+        signup: async (_, { email, username, password, role }) => {
             
-            const hashedPassword = await Auth.passwordHasher(password)
+            try {
+                const hashedPassword = await Auth.passwordHasher(password)
 
+                const user = new User({ email, username, password: hashedPassword, role})
 
-            const user = new User({ email, username, password: hashedPassword})
+                await user.save()
 
-            await user.save()
-
-            console.log('new user created')
+                console.log('new user created')    
+            } catch (error) {
+                console.log(error.message)
+            }     
         },
 
         login: async(_, {email, username, password}) => {
