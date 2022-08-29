@@ -8,7 +8,7 @@ const foodUserSchema = mongoose.Schema({
     username: {type: String, required: true, unique: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    role: {type: String, enum: ['CUSTOMER', 'BUSINESS OWNER', 'CARRIER', 'ADMINISTRATOR'], required: true},
+    role: {type: String, enum: ['CUSTOMER', 'BUSINESS_OWNER', 'CARRIER', 'ADMINISTRATOR'], required: true},
     
 
 },

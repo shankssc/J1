@@ -1,5 +1,6 @@
+import { gql } from 'apollo-server-express'
 
-const User = `
+const User = gql`
 
     enum Role {
         CUSTOMER
@@ -9,8 +10,8 @@ const User = `
     }
 
     type User {
+        uid: String!
         _id: ID!
-        uid: ID!
         username: String!
         email: String!
         password: String!
@@ -21,15 +22,29 @@ const User = `
         jwt: ID!
     }
 
+
+    input RegisteringUser {
+        username: String!
+        email: String!
+        password: String!
+        role: Role!
+    }
+
+    input LogInInput {
+        username: String!
+        email: String!
+        password: String!
+    }
+
     type Query {
         getUser(id: ID!): User
         getUsers: [User]
     }
 
     type Mutation {
-        signup(username: String!, email: String!, password: String!, role: Role!): String!,
+        signup(registerInput: RegisteringUser): User!,
 
-        login(email: String, username: String, password: String!): Token!
+        login(loggingInput: LogInInput): Token!
     }
 
 `;
