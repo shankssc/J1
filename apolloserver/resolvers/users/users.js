@@ -8,9 +8,9 @@ export default {
         getUsers: async () => await User.find(),
 
         getUser: async (_, {id}, context) => {
-            if (!context.userId) throw new Error('You must be authenticated!')
+            if (!context.userId) throw new ApolloError('You must be authenticated!')
 
-            if (context.userId !== id) throw new Error('You can only view your own data')
+            if (context.userId !== id) throw new ApolloError('You can only view your own data')
         
             return User.findById(id)
         }
@@ -37,24 +37,28 @@ export default {
                 console.log(user) 
                 console.log('new user created')
                 
-                return user
+                return {
+                    id: user.id,
+                    ...user._doc
+                }
             } catch (error) {
                 throw new ApolloError("User creation failed")
             }     
         },
 
-        login: async(_, {loggingInput: {email, username, password}}) => {
+        login: async(_, {loggingInput: { email, username, password }}) => {
 
             if (!username && !email) {
                 throw new ApolloError('email/username required')
             }
-
+            
             const userPayload = email ? { email } : {username}
 
-            const user = await User.findone(userPayload)
+            //const user = await User.findOne(userPayload)
+            const user = await User.findOne({username})
 
             if (!user) {
-                throw new ApolloError('user not found')
+                throw new ApolloError('user not found please try again')
             }
 
             const passcheck = await Auth.passwordMatcher(password, user.password)
@@ -63,13 +67,22 @@ export default {
                 throw new ApolloError('Invalid password please try again')
             }
 
-            return {
-                jwt: Auth.generateToken({
+            else {
+                const jwt = Auth.generateToken({
                     userId: user.id,
                     username: user.username,
                     email: user.email
                 })
+    
+                user.token = jwt
+    
+                return {
+                    id: user.id,
+                    ...user._doc,
+                    jwt
+                }
             }
+            
         }
     }
 }

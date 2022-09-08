@@ -16,6 +16,7 @@ const User = gql`
         email: String!
         password: String!
         role: Role!
+        token: String
     }
 
     type Token {
@@ -44,7 +45,7 @@ const User = gql`
     type Mutation {
         signup(registerInput: RegisteringUser): User!,
 
-        login(loggingInput: LogInInput): Token!
+        login(loggingInput: LogInInput): User!
     }
 
 `;
