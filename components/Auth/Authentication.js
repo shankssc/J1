@@ -42,7 +42,7 @@ const Authentication = () => {
       }}>
       
       <Card.Title>{isSignup?'Sign up': 'Sign in'}</Card.Title>
-
+            
       <View style={{
         marginLeft: "250px",
         overflow: "hidden"
@@ -54,31 +54,40 @@ const Authentication = () => {
       />
       </View>
 
-      <TextInput
-        placeholder=' userame'
+      {
+        isSignup ?
+        <View>
+          <TextInput
+        placeholder=' username'
         style={Styles.input}
         onChangeText={() => { }}
       />
+
+      
       <TextInput
         placeholder=' email'
         style={Styles.input}
         onChangeText={() => { }}
       />
+      
+
       <TextInput
         placeholder=' password'
         style={Styles.input}
         onChangeText={() => { }}
       />
+      
       <TextInput
         placeholder=' confirm password'
         style={Styles.input}
         onChangeText={() => { }}
       />
+      
 
       <View style={{flexDirection:"row", marginTop: 10, marginBottom: 10}}>
       
       <Button 
-        title="Sign in" 
+        title="Sign up" 
         type="solid" 
         titleStyle={{ fontWeight: '700' }}
         buttonStyle={{
@@ -104,6 +113,48 @@ const Authentication = () => {
       onChange={item => setDropdown(item.value)}
       />
       </View>
+        </View>
+
+          :
+
+      <View>
+        <TextInput
+        placeholder=' username'
+        style={Styles.input}
+        onChangeText={() => { }}
+      />
+
+      <TextInput
+        placeholder=' password'
+        style={Styles.input}
+        onChangeText={() => { }}
+      />
+      
+      <View style={{flexDirection:"row", marginTop: 10, marginBottom: 10}}>
+      
+      <Button 
+        title="Sign in" 
+        type="solid" 
+        titleStyle={{ fontWeight: '700' }}
+        buttonStyle={{
+          backgroundColor: "rgba(199, 43, 98, 1)",
+          borderColor: 'transparent',
+          borderWidth: 0,
+          borderRadius: 30,
+          
+        }}
+        containerStyle={{
+          width: 100,
+          marginRight: 50,
+          
+        }}
+        onPress={() => navigation.navigate('Home')}
+        />
+      </View>
+
+        </View>
+      }
+
       </Card>
       
       </ScrollView>

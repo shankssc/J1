@@ -76,7 +76,7 @@ export default {
     
                 user.token = jwt
                 
-                console.log("The token is ",user.token)
+                
 
                 return {
                     id: user.id,
