@@ -17,7 +17,13 @@ const InitServer = async () => {
 
     const server = new ApolloServer({
         typeDefs,
-        resolvers
+        resolvers,
+        context: (req,res) => {
+            return {
+            req: req,
+            res: res,
+            }
+        }
     })   
 
     await server.start();

@@ -68,18 +68,20 @@ export default {
             }
 
             else {
-                const jwt = Auth.generateToken({
+                const jwt = await Auth.generateToken({
                     userId: user.id,
                     username: user.username,
                     email: user.email
                 })
     
                 user.token = jwt
-    
+                
+                console.log("The token is ",user.token)
+
                 return {
                     id: user.id,
                     ...user._doc,
-                    jwt
+                    
                 }
             }
             
