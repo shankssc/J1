@@ -17,7 +17,7 @@ export default {
     },
 
     Mutation: {
-        signup: async (_, {registerInput: { username, email, password, role } }) => {
+        signup: async (_, {registerInput: { username, email, password, role } }, context) => {
             
             
 
@@ -81,7 +81,7 @@ export default {
                 return {
                     id: user.id,
                     ...user._doc,
-                    
+                    jwt
                 }
             }
             

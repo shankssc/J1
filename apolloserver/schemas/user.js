@@ -19,11 +19,6 @@ const User = gql`
         token: String
     }
 
-    type Token {
-        jwt: ID!
-    }
-
-
     input RegisteringUser {
         username: String!
         email: String!
