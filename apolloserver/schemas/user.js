@@ -41,6 +41,8 @@ const User = gql`
         signup(registerInput: RegisteringUser): User!,
 
         login(loggingInput: LogInInput): User!
+
+           
     }
 
 `;

@@ -56,13 +56,14 @@ export default class Auth {
     }
 
     static verifyToken = async(context, SECRET_KEY) => {
-        const authHeader = context.req.headers.authorization;
-
+        const AuthHeader = context.req.headers.authorization
+        
         if (AuthHeader) {
-            const token = authHeader.split('Bearer ')[1]
+            const token = AuthHeader.split('Bearer ')[1]
             if (token) {
                 try {
                     const user = jwt.verify(token, SECRET_KEY);
+                    console.log(user)
                     return user
                 }
                 catch (err) {

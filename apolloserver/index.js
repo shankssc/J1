@@ -5,8 +5,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 
 import Auth from './services/authServices.js'
-import typeDefs from './schemas/user.js'
-import resolvers from './resolvers/users/users.js'
+import typeDefs from './schemas/index.js'
+import resolvers from './resolvers/index.js'
+import AnalyticsExtension from './analyticsExtension.js'
 
 dotenv.config()
 
@@ -18,12 +19,8 @@ const InitServer = async () => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        context: (req,res) => {
-            return {
-            req: req,
-            res: res,
-            }
-        }
+        context: ({ req }) => ({ req }),
+        extensions: [() => new AnalyticsExtension()]
     })   
 
     await server.start();

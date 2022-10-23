@@ -1,7 +1,14 @@
 import User from './users/users.js'
 import Restaurant from './restaurants/restaurants.js'
 
-module.exports = [
-  User,
-  Restaurant
-]
+export default {
+  Query: {
+    ...User.Query,
+    ...Restaurant.Query
+  },
+  Mutation: {
+    ...User.Mutation,
+    ...Restaurant.Mutation
+  }
+  
+}
