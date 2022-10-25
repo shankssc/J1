@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import uuid from "node-uuid";
-/*
+
 const restaurantSchema = mongoose.Schema({
     uid: {type: String, default:uuid.v4,required: true},
     id: {type: String},
@@ -40,7 +40,8 @@ const restaurantSchema = mongoose.Schema({
 },
 {timestamps: true}
 )
-*/
+
+/*
 const restaurantSchema = mongoose.Schema({
     uid: {type: String, default:uuid.v4,required: true},
     id: {type: String},
@@ -51,5 +52,5 @@ const restaurantSchema = mongoose.Schema({
 },
     {timestamps: true}
 )
-
+*/
 export default mongoose.model("Restaurant",restaurantSchema)

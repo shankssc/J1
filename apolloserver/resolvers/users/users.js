@@ -5,7 +5,10 @@ import { ApolloError } from 'apollo-server-express'
 export default {
 
     Query: {
-        getUsers: async () => await User.find(),
+        getUsers: async () => {
+            const users = await User.find()
+            return users
+        },
 
         getUser: async (_, {id}, context) => {
             if (!context.userId) throw new ApolloError('You must be authenticated!')
@@ -69,7 +72,7 @@ export default {
 
             else {
                 const jwt = await Auth.generateToken({
-                    userId: user.id,
+                    userId: user.uid,
                     username: user.username,
                     email: user.email
                 })

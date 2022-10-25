@@ -3,6 +3,7 @@ import Restaurant from '../../models/restaurant.js'
 import Auth from '../../services/authServices.js'
 import { ApolloError, UserInputError } from 'apollo-server-express'
 
+
 export default {
 
     Query: {
@@ -22,16 +23,15 @@ export default {
     Mutation: {
         createRestaurant: async(_, {restaurantInput:{name, phone, address}},context) => {
             //console.log(context.req.headers.authorization)
-            const user = Auth.verifyToken(context,process.env.TOKEN_SECRET)
-            console.log(user)
-
+            const user = await Auth.verifyToken(context,process.env.TOKEN_SECRET)
+            //console.log(String(user.id))
+            
             if (!user) {
                 throw new ApolloError('Session expired')
             }
 
-            const present_user = User.findOne(name=user.username)
+            const present_user = await User.findOne({uid:user.id})
             
-
             if (present_user.role !== 'BUSINESS_OWNER') {
                 throw new ApolloError('Only Business owners can create a restaurant page!')
             }
@@ -40,7 +40,7 @@ export default {
                 const newRestaurant = new Restaurant({
                     name: name,
                     phone: phone,
-                    owner: present_user,
+                    owner: present_user.username,
                     address: address
                 })
     

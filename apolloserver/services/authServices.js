@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import { AuthenticationError, ApolloError } from 'apollo-server-express'
+import jwt_decode from "jwt-decode"
 
 dotenv.config()
 
@@ -63,8 +64,28 @@ export default class Auth {
             if (token) {
                 try {
                     const user = jwt.verify(token, SECRET_KEY);
-                    console.log(user)
+                    //console.log(user)
                     return user
+                }
+                catch (err) {
+                    throw new AuthenticationError('Invalid/Expired token')
+                }
+            }
+            throw new ApolloError('Authentication token must be of Bearer [token] format')
+        }
+        throw new ApolloError('Authentication header must be provided')
+    }
+
+    static decodeToken = async(context) => {
+        const AuthHeader = context.req.headers.authorization
+        
+        if (AuthHeader) {
+            const token = AuthHeader.split('Bearer ')[1]
+            if (token) {
+                try {
+                    const decoded = jwt_decode(AuthHeader);
+                    
+                    return decoded
                 }
                 catch (err) {
                     throw new AuthenticationError('Invalid/Expired token')
