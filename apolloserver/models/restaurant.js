@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import uuid from "node-uuid";
 
+
 const restaurantSchema = mongoose.Schema({
     uid: {type: String, default:uuid.v4,required: true},
-    id: {type: String},
+    id: {type: String, unique: true},
     name: {type: String, required: true, unique: true},
     phone: {type: String, required: true, unique: true},
     owner: {type: String, required: true},
@@ -12,34 +13,35 @@ const restaurantSchema = mongoose.Schema({
         Breakfast : {
             uid: {type: String, default:uuid.v4},
             name: {type: String, unique: true},
-            calories: {type: String, unique: true},
-            price: {type: String, unique: true},
+            calories: {type: String},
+            price: {type: String},
         },
 
         Lunch : {
             uid: {type: String, default:uuid.v4},
             name: {type: String, unique: true},
-            calories: {type: String, unique: true},
-            price: {type: String, unique: true},
+            calories: {type: String},
+            price: {type: String},
         },
 
         Dinner : {
             uid: {type: String, default:uuid.v4},
             name: {type: String, unique: true},
-            calories: {type: String, unique: true},
-            price: {type: String, unique: true},
+            calories: {type: String},
+            price: {type: String},
         },
 
         Specials: {
             uid: {type: String, default:uuid.v4},
             name: {type: String, unique: true},
-            calories: {type: String, unique: true},
-            price: {type: String, unique: true},
+            calories: {type: String},
+            price: {type: String},
         }
     }
 },
 {timestamps: true}
 )
+
 
 /*
 const restaurantSchema = mongoose.Schema({
@@ -53,4 +55,5 @@ const restaurantSchema = mongoose.Schema({
     {timestamps: true}
 )
 */
+
 export default mongoose.model("Restaurant",restaurantSchema)

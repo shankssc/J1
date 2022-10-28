@@ -37,27 +37,29 @@ export default {
             }
             
             try {
-                const newRestaurant = new Restaurant({
+                const restaurant = new Restaurant({
                     name: name,
                     phone: phone,
                     owner: present_user.username,
                     address: address
                 })
+                //console.log(restaurant)
+                await restaurant.save()
     
-                await newRestaurant.save()
-    
-                console.log(newRestaurant)
+                
                 console.log('New restaurant created successfully')
+
+                return {
+                    id: restaurant.id,
+                    ...restaurant._doc
+                }
             }
             
             catch (error) {
                 throw new UserInputError('Restaurant creation failed')
             }
             
-            return {
-                id: newRestaurant.id,
-                ...newRestaurant._doc
-            }
+            
         }
     }
 }
