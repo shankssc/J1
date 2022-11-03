@@ -10,33 +10,37 @@ const restaurantSchema = mongoose.Schema({
     owner: {type: String, required: true},
     address: {type: String, required: true, unique: true},
     category: {
-        Breakfast : {
+        Breakfast : [{
             uid: {type: String, default:uuid.v4},
             name: {type: String, unique: true},
             calories: {type: String},
+            type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},
             price: {type: String},
-        },
+        }],
 
-        Lunch : {
+        Lunch : [{
             uid: {type: String, default:uuid.v4},
             name: {type: String, unique: true},
             calories: {type: String},
+            type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},
             price: {type: String},
-        },
+        }],
 
-        Dinner : {
+        Dinner : [{
             uid: {type: String, default:uuid.v4},
             name: {type: String, unique: true},
             calories: {type: String},
+            type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},
             price: {type: String},
-        },
+        }],
 
-        Specials: {
+        Specials: [{
             uid: {type: String, default:uuid.v4},
             name: {type: String, unique: true},
             calories: {type: String},
+            type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},
             price: {type: String},
-        }
+        }],
     }
 },
 {timestamps: true}
