@@ -3,7 +3,7 @@ import uuid from "node-uuid";
 
 
 const restaurantSchema = mongoose.Schema({
-    uid: {type: String, default:uuid.v4,required: true},
+    uid: {type: String, default:uuid.v4,required: true, unique: true},
     id: {type: String, unique: true},
     name: {type: String, required: true, unique: true},
     phone: {type: String, required: true, unique: true},
@@ -11,7 +11,7 @@ const restaurantSchema = mongoose.Schema({
     address: {type: String, required: true, unique: true},
     category: {
         Breakfast : [{
-            uid: {type: String, default:uuid.v4},
+            uid: {type: String, default:uuid.v4, unique: true},
             name: {type: String, unique: true},
             calories: {type: String},
             type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},
@@ -19,7 +19,7 @@ const restaurantSchema = mongoose.Schema({
         }],
 
         Lunch : [{
-            uid: {type: String, default:uuid.v4},
+            uid: {type: String, default:uuid.v4, unique: true},
             name: {type: String, unique: true},
             calories: {type: String},
             type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},
@@ -27,7 +27,7 @@ const restaurantSchema = mongoose.Schema({
         }],
 
         Dinner : [{
-            uid: {type: String, default:uuid.v4},
+            uid: {type: String, default:uuid.v4, unique: true},
             name: {type: String, unique: true},
             calories: {type: String},
             type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},
@@ -35,7 +35,7 @@ const restaurantSchema = mongoose.Schema({
         }],
 
         Specials: [{
-            uid: {type: String, default:uuid.v4},
+            uid: {type: String, default:uuid.v4, unique:true},
             name: {type: String, unique: true},
             calories: {type: String},
             type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},

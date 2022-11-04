@@ -1,109 +1,20 @@
 import { gql } from 'apollo-server-express'
 
-/*
 const Restaurant = gql`
 
-type Breakfast {
-    uid: String!
-    name: String!
-    calories: String!
-    price: String!
-}
+    enum Item_type {
+        VEGAN
+        VEG
+        NON_VEG
+    }
 
-type Lunch {
-    uid: String!
-    name: String!
-    calories: String!
-    price: String!
-}
+    enum Category {
+        BREAKFAST
+        LUNCH
+        DINNER
+        SPECIALS
+    }
 
-type Dinner {
-    uid: String!
-    name: String!
-    calories: String!
-    price: String!
-}
-
-type Specials {
-    uid: String!
-    name: String!
-    calories: String!
-    price: String!
-}
-
-type categories {
-    Breakfast: [Breakfast]
-    Lunch: [Lunch]
-    Dinner: [Dinner]
-    Specials: [Specials]
-}
-
-input breakfastInput {
-    name: String!
-    calories: String!
-    price: String!
-}
-
-input lunchInput {
-    name: String!
-    calories: String!
-    price: String!
-}
-
-input dinnerInput {
-    name: String!
-    calories: String!
-    price: String!
-}
-
-input specialsInput {
-    name: String!
-    calories: String!
-    price: String!
-}
-
-input categoriesInput {
-    Breakfast: [breakfastInput]
-    Lunch: [lunchInput]
-    Dinner: [dinnerInput]
-    Specials: [specialsInput]
-}
-
-type Restaurant {
-    uid: String!
-    _id: ID!
-    name: String!
-    phone: String!
-    owner: String!
-    address: String!
-    categories: [categories]
-}
-
-input RegisteringRestaurants {
-    name: String!
-    phone: String!
-    address: String!
-}
-
-input AddingMenuItems {
-    name: String!
-    categories: [categoriesInput]!
-}
-
-type Query {
-    getRestaurant(rest_id: ID!): Restaurant
-    getRestaurants: [Restaurant]
-}
-
-type Mutation {
-    createRestaurant(restaurantInput: RegisteringRestaurants): Restaurant
-
-    updatingMenu(menuInput: AddingMenuItems, data: categoriesInput ): Restaurant!
-}
-`
-*/
-
-const Restaurant = gql`
     type Restaurant {
         uid: String!
         _id: ID!
@@ -119,6 +30,15 @@ const Restaurant = gql`
         address: String!
     }
 
+    input AddingItems {
+        restaurant_name: String!
+        name: String!
+        calories: String!
+        type: Item_type!
+        price: String!
+        category: Category!
+    }
+
     type Query {
         getRestaurant(rest_id: ID!): Restaurant
         getRestaurants: [Restaurant]
@@ -126,6 +46,8 @@ const Restaurant = gql`
     
     type Mutation {
         createRestaurant(restaurantInput: RegisteringRestaurants): Restaurant
+
+        addMenuItems(menuItemInput: AddingItems): Restaurant
     }
 `
 export default Restaurant
