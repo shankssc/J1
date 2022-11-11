@@ -8,13 +8,6 @@ const Restaurant = gql`
         NON_VEG
     }
 
-    enum Category {
-        BREAKFAST
-        LUNCH
-        DINNER
-        SPECIALS
-    }
-
     type Restaurant {
         uid: String!
         _id: ID!
@@ -36,7 +29,8 @@ const Restaurant = gql`
         calories: String!
         type: Item_type!
         price: String!
-        category: Category!
+        category: String!
+        subcategory: String!
     }
 
     type Query {

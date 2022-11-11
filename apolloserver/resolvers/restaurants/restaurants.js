@@ -64,7 +64,7 @@ export default {
             
         },
 
-        addMenuItems: async(_, {menuItemInput:{restaurant_name,name,calories,type,price,category}},context) => {
+        addMenuItems: async(_, {menuItemInput:{restaurant_name,name,calories,type,price,category,subcategory}},context) => {
             const user = await Auth.verifyToken(context,process.env.TOKEN_SECRET)
             //console.log(String(user.id))
             
@@ -73,37 +73,34 @@ export default {
             }
             const present_user = await User.findOne({uid:user.id})
             
-            if (present_user.role !== 'BUSINESS_OWNER') {
-                throw new ApolloError('Only Business owners can create a restaurant page!')
-            }
-
             const valid_user = Rest.owner_checker(present_user.username,User)
             
             if (!valid_user) {
                 throw new ApolloError('Only the owner is permitted to modify menu items!')
             }
-
-            duplicate_item = Rest.duplicate_checker(name)
+            /*
+            duplicate_item = Rest.duplicate_checker(name,restaurant_name,category,subcategory,Restaurant)
 
             if (duplicate_item) {
                 throw new UserInputError("This item already exists")
             }
-
+            */
             try {
-                const RestRI = await Restaurant.find({name: restaurant_name})
+                 
 
-                const newMenuItem = await Rest.Item_adder(RestRI, [name,calories,type,price,category])
-
-                await newMenuItem.save()
-
-                console.log('New Item was added successfully')
-
-                return {
-                    id: newMenuItem.id,
-                    ...newMenuItem._doc
+                const newMenuItem = await Rest.Item_adder(Restaurant, [name,restaurant_name,calories,type,price,category,subcategory])
+                
+                
+                if (newMenuItem !== null) {
+                    console.log('New Item was added successfully')
+                    return {
+                        id: newMenuItem.id,
+                        ...newMenuItem._doc
+                    }
                 }
-
+                
             } catch (error) {
+                
                 throw new UserInputError('Item addition failed')
             }
 
