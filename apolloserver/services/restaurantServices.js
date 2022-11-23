@@ -27,26 +27,91 @@ export default class Rest {
         }]
         */
 
-        const duplicate_item = await Restaurant.find({name: restaurant_name,
-                                                        "menu": {
-                                                            "$elemMatch": {"category_name": {"$exists": category},
-                                                                            "subcategory": {
-                                                                                "$elemMatch": {"subcategory_name": {"$exists": subcategory},
-                                                                                                "item": {
-                                                                                                    "$elemMatch": {"name": {"$exists": user_input_item}}
-                                                                                                }  
-                                                                                            }
-                                                                                        }
-                                                                            }
-                                                                }
-                                                    })
+        const duplicate_item = await Restaurant.findOne({name: restaurant_name,
+                                                        "menu.subcategory.item": {
+                                                            "$elemMatch": {"item_name": user_input_item}
+                                                    }})
 
         return duplicate_item
     }
 
     static Item_adder = async (Restaurant, Payload) => {
         const [name, restaurant_name,calories, type, price, category, subcategory] = Payload
+        
+        const Restaurant_category = await Restaurant.findOne({name: restaurant_name,
+            "menu": {
+                "$elemMatch": {"category_name": {"$in": category}}}}
+                
+        )
+        console.log("Abefore: ",Restaurant_category)
 
+        if (Restaurant_category == null) {
+            await Restaurant.updateOne(
+                {name: restaurant_name},
+                {"$push": {"menu": {category_name: category}}},
+                
+            function (error, res) {
+                if (error) {
+                    console.log(error)
+                }
+                else {
+                    
+                }
+
+            }
+            )
+        }
+        
+            const Restaurant_subcategory = await Restaurant.findOne({name: restaurant_name,
+                "menu.subcategory": {
+                    "$elemMatch": {"subcategory_name": {"$in": subcategory}}}}
+                    
+            )
+            console.log("B: ",Restaurant_subcategory)
+        
+        if (Restaurant_subcategory == null) {
+            await Restaurant.updateOne(
+                {name: restaurant_name,
+                 "menu": {category_name: category,
+                           "$push": {"subcategory": {subcategory_name: subcategory}}}
+                },
+    
+            function (error, res) {
+                if (error) {
+                    console.log(error)
+                }
+                else {
+                    console.log(res)
+                }
+
+            })
+        }
+
+        await Restaurant.updateOne({name: restaurant_name,
+            "menu": 
+            {category_name: category,
+            "subcategory": 
+            {subcategory_name: subcategory,
+             "$push": {"item": {item_name:name,
+                                calories:calories,
+                                type:type,
+                                price:price}}}
+        
+            },
+            function (error, res) {
+                if (error) {
+                    console.log(error)
+                }
+                else {
+                    console.log(res)
+                }
+
+            }
+        })
+
+        return 'SUCCESS'
+
+        /*
         const Restaurant_category = await Restaurant.findOne({name: restaurant_name,
             "menu": {
                 "$elemMatch": {"category_name": {"$in": category}}}}
@@ -54,7 +119,7 @@ export default class Rest {
         )
 
         
-        /*
+        
         if (Restaurant_category == null) {
             const category_addition = await Restaurant.updateOne(
                 {name: restaurant_name},

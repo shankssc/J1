@@ -78,21 +78,33 @@ export default {
             if (!valid_user) {
                 throw new ApolloError('Only the owner is permitted to modify menu items!')
             }
-            /*
+            
             duplicate_item = Rest.duplicate_checker(name,restaurant_name,category,subcategory,Restaurant)
 
-            if (duplicate_item) {
+            if (duplicate_item !== null) {
                 throw new UserInputError("This item already exists")
             }
-            */
+            
             try {
                  
 
-                const newMenuItem = await Rest.Item_adder(Restaurant, [name,restaurant_name,calories,type,price,category,subcategory])
+                const newMenuItemStatus = await Rest.Item_adder(Restaurant, [name,restaurant_name,calories,type,price,category,subcategory])
                 
                 
-                if (newMenuItem !== null) {
+                if (newMenuItemStatus === 'SUCCESS') {
                     console.log('New Item was added successfully')
+
+                    const newMenuItem = await Restaurant.findOne(({name: restaurant_name},
+                        {"menu": 
+                        {category_name: category,
+                        "subcategory": 
+                        {"item": {
+                            "$elemMatch": {"item_name": {"$in": name}}
+                        }}
+                        
+                        },
+                    }))
+
                     return {
                         id: newMenuItem.id,
                         ...newMenuItem._doc
