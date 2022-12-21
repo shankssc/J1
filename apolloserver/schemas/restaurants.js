@@ -23,6 +23,17 @@ const Restaurant = gql`
         address: String!
     }
 
+    input AddingCategory {
+        restaurant_name: String!
+        category_name: String!
+    }
+
+    input AddingSubCategory {
+        restaurant_name: String!
+        category_name: String!
+        subcategory_name: String!
+    }
+
     input AddingItems {
         restaurant_name: String!
         name: String!
@@ -40,6 +51,10 @@ const Restaurant = gql`
     
     type Mutation {
         createRestaurant(restaurantInput: RegisteringRestaurants): Restaurant
+
+        addMenuCategory(categoryInput: AddingCategory): Restaurant
+
+        addMenuSubCategory(subcategoryInput: AddingSubCategory): Restaurant
 
         addMenuItems(menuItemInput: AddingItems): Restaurant
     }
