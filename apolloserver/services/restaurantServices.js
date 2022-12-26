@@ -126,215 +126,49 @@ export default class Rest {
         }
 
         else {
+            /*
             await Restaurant.updateOne(
                 {name: restaurant_name,
-                 "menu.category_name": category_name,
+                 //"menu.category_name": category_name,
+                 //"subcategory_name": subcategory_name
                 },
-                { "menu":
                 {
-                    "subcategory_name": subcategory_name,
                     "$push": {
-                        "$.subcategory.$.item": {item_name:name,
-                                                     calories:calories,
-                                                     type:type,
-                                                     price:price}
-                    }
+                        "menu.$[outer].subcategory.$[inner].item": {"item_name":name,
+                                                     "calories":calories,
+                                                     "type":type,
+                                                     "price":price}
+                    },
+                    "arrayFilters": [{"outer.category_name":category_name}, 
+                                      {"inner.subcategory_name":subcategory_name}]
                 }
-            }
-            )
-        }        
-        /*
-        const Restaurant_category = await Restaurant.findOne({name: restaurant_name,
-            "menu": {
-                "$elemMatch": {"category_name": {"$in": category}}}}
-                
-        )
-        console.log("Abefore: ",Restaurant_category)
-        
-        
-        if (Restaurant_category == null) {
-            await Restaurant.updateOne(
-                {name: restaurant_name},
-                {"$push": {"menu": {category_name: category}}},
-                
-            function (error, res) {
-                if (error) {
-                    console.log(error)
-                }
-                else {
-                    
-                }
-
-            }
-            )
-        }
-        
-        
-            const Restaurant_subcategory = await Restaurant.findOne({name: restaurant_name,
-                "menu.subcategory": {
-                    "$elemMatch": {"subcategory_name": {"$in": subcategory}}}}
-                    
-            )
-            console.log("B: ",Restaurant_subcategory)
-        
-        if (Restaurant_subcategory == null) {
-            await Restaurant.updateOne(
-                {name: restaurant_name,
-                 "menu": {category_name: category,
-                           "$push": {"subcategory": {subcategory_name: subcategory}}}
-                },
-    
-            function (error, res) {
-                if (error) {
-                    console.log(error)
-                }
-                else {
-                    console.log(res)
-                }
-
-            })
-        }
-
-        return 'SUCCESS'
-        
-        
-        await Restaurant.updateOne({name: restaurant_name,
-            "menu": 
-            {category_name: category,
-            "subcategory": 
-            {subcategory_name: subcategory,
-             "$push": {"item": {item_name:name,
-                                calories:calories,
-                                type:type,
-                                price:price}}}
-        
-            },
-            function (error, res) {
-                if (error) {
-                    console.log(error)
-                }
-                else {
-                    console.log(res)
-                }
-
-            }
-        })
-        */
-
-        /*
-        const Restaurant_category = await Restaurant.findOne({name: restaurant_name,
-            "menu": {
-                "$elemMatch": {"category_name": {"$in": category}}}}
-                
-        )
-
-        
-        
-        if (Restaurant_category == null) {
-            const category_addition = await Restaurant.updateOne(
-                {name: restaurant_name},
-                {"$push": {"menu": {category_name: category}}},
-                
-            function (error, res) {
-                if (error) {
-                    console.log(error)
-                }
-                else {
-                
-                }
-
-            }
-            )
-        }
-
-        
-        const Restaurant_subcategory =  Restaurant.findOne({name: restaurant_name},
-                                                                {"menu.category.subcategory": 
-                                                                {"$elemMatch": 
-                                                         
-                                                                    {"subcategory_name":{"$in":subcategory}}
-                                                                
-                                                            }})
-        */
-        /*
-        const Restaurant_subcategory = await Restaurant.findOne({name: restaurant_name},
-                                                                {"menu": 
-                                                                {category_name: category,
-                                                                 "subcategory": 
-                                                                 {subcategory_name: subcategory}
-                                                                 
-                                                                },
-                                                            })
-        */
-        
-        
-        /*
-        if (Restaurant_subcategory == null) {
-            const subcategory_addition = await Restaurant.updateOne(
-                {name: restaurant_name,
-                 "menu": {category_name: category,
-                           "$push": {"subcategory": {subcategory_name: subcategory}}}
-                },
-    
-            function (error, res) {
-                if (error) {
-                    console.log(error)
-                }
-                else {
-                    console.log(res)
-                }
-
-            }
             
             )
-        }
-
-        
-        await Restaurant.updateOne({name: restaurant_name,
-            "menu": 
-            {category_name: category,
-            "subcategory": 
-            {subcategory_name: subcategory,
-             "$push": {"item": {item_name:name,
-                                calories:calories,
-                                type:type,
-                                price:price}}}
-        
-            },
-            function (error, res) {
-                if (error) {
-                    console.log(error)
+            */
+            await Restaurant.updateOne({
+                name: restaurant_name
+              },
+              {
+                "$push": {
+                  "menu.$[outer].subcategory.$[inner].item": {
+                    "item_name": name,
+                    "calories": calories,
+                    "type": type,
+                    "price": price
+                  },
+                  
                 }
-                else {
-                    console.log(res)
-                }
-
-            }
-        })
-
-        
-        const restaurant_instance = await Restaurant.findOne({name: restaurant_name},
-                                                            {"menu": 
-                                                            {category_name: category,
-                                                            "subcategory": 
-                                                            {"item": {
-                                                                "$elemMatch": {"item_name": {"$in": name}}
-                                                            }}
-                                                            
-                                                            },
-                                                        })
-        
-                                                        
-
-        const restaurant_instance = await Restaurant.findOne({name: restaurant_name,
-                                                            "menu": {
-                                                                category_name: category,
-                                                                "subcategory":
-                                                                {"item":{item_name:name}}
-                                                            }    
-                                                            })
-
-        return restaurant_instance
-        */
+              },
+              {
+                "arrayFilters": [
+                  {
+                    "outer.category_name": category_name
+                  },
+                  {
+                    "inner.subcategory_name": subcategory_name
+                  }
+                ]
+              })
+        }        
     }
 }

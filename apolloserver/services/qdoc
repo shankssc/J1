@@ -1,0 +1,48 @@
+[
+  {
+    name: "La Una Cantina",
+    menu: [
+      {
+        category_name: "Main Course",
+        subcategory: [
+          {
+            subcategory_name: "Tacos",
+            item: [
+              {
+                item_name: "",
+                calories: "",
+                type: "",
+                price: ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+
+db.collection.update({
+    name: "La Una Cantina"
+  },
+  {
+    "$push": {
+      "menu.$[outer].subcategory.$[inner].item": {
+        "item_name": "Burrit",
+        "calories": "150",
+        "type": "VEG",
+        "price": "12"
+      },
+      
+    }
+  },
+  {
+    "arrayFilters": [
+      {
+        "outer.category_name": "Main Course"
+      },
+      {
+        "inner.subcategory_name": "Tacos"
+      }
+    ]
+  })
