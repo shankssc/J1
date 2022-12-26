@@ -15,26 +15,6 @@ export default class Rest {
         return lookup
     }
 
-    static duplicate_checker = async (user_input_item, restaurant_name, category, subcategory, Restaurant) => {
-        //const duplicate_item = Restaurant.findOne({})
-        /*
-        complex_query = [{
-            '$match': {
-                $or: [
-                    
-                ]
-            }
-        }]
-        */
-
-        const duplicate_item = await Restaurant.findOne({name: restaurant_name,
-                                                        "menu.subcategory.item": {
-                                                            "$elemMatch": {"item_name": user_input_item}
-                                                    }})
-
-        return duplicate_item
-    }
-
     static Category_adder = async (Restaurant, restaurant_name, category_name) => {
 
         const Restaurant_category = await Restaurant.findOne({name: restaurant_name,
@@ -116,6 +96,7 @@ export default class Rest {
         
         const duplicate_checker = await Restaurant.findOne(
             {name: restaurant_name,
+            "menu.category_name": category_name,
             "menu.subcategory.subcategory_name": subcategory_name,
             "menu.subcategory.item": {
                 "$elemMatch": {"item_name": {"$in": name}}}}      
@@ -170,5 +151,44 @@ export default class Rest {
                 ]
               })
         }        
+    }
+
+    static Item_remover = async (Restaurant, Payload) => {
+        const [name, restaurant_name, category_name, subcategory_name] = Payload
+
+        const item_checker = await Restaurant.findOne(
+            {name: restaurant_name,
+            "menu.subcategory.subcategory_name": subcategory_name,
+            "menu.subcategory.item": {
+                "$elemMatch": {"item_name": name}}}      
+        )
+        
+        if (item_checker == null) {
+            throw new UserInputError("This item doesn't exist!")
+        }
+
+        else {
+            await Restaurant.findOneAndUpdate({
+                name: restaurant_name
+              },
+              {
+                "$pull": {
+                  "menu.$[outer].subcategory.$[inner].item": {
+                    "item_name": name
+                  },
+                  
+                }
+              },
+              {
+                "arrayFilters": [
+                  {
+                    "outer.category_name": category_name
+                  },
+                  {
+                    "inner.subcategory_name": subcategory_name
+                  }
+                ]
+              })
+        }
     }
 }

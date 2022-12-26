@@ -44,6 +44,13 @@ const Restaurant = gql`
         subcategory: String!
     }
 
+    input DeletingItems {
+        restaurant_name: String!
+        name: String!
+        category: String!
+        subcategory: String!
+    }
+
     type Query {
         getRestaurant(rest_id: ID!): Restaurant
         getRestaurants: [Restaurant]
@@ -57,6 +64,8 @@ const Restaurant = gql`
         addMenuSubCategory(subcategoryInput: AddingSubCategory): Restaurant
 
         addMenuItems(menuItemInput: AddingItems): Restaurant
+
+        deleteMenuItems(dmenuItemInput: DeletingItems): Restaurant
     }
 `
 export default Restaurant

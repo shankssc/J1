@@ -61,6 +61,7 @@ export default class Auth {
         
         if (AuthHeader) {
             const token = AuthHeader.split('Bearer ')[1]
+            //console.log(token)
             if (token) {
                 try {
                     const user = jwt.verify(token, SECRET_KEY);
@@ -68,6 +69,7 @@ export default class Auth {
                     return user
                 }
                 catch (err) {
+                    console.log(err)
                     throw new AuthenticationError('Invalid/Expired token')
                 }
             }

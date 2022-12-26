@@ -136,8 +136,6 @@ export default {
             
         },
 
-
-
         addMenuItems: async(_, {menuItemInput:{restaurant_name,name,calories,type,price,category,subcategory}},context) => {
             const user = await Auth.verifyToken(context,process.env.TOKEN_SECRET)
             //console.log(String(user.id))
@@ -161,47 +159,30 @@ export default {
 
             await Rest.Item_adder(Restaurant, [name,restaurant_name,calories,type,price,category,subcategory])
 
-            /*
-            duplicate_item = Rest.duplicate_checker(name,restaurant_name,category,subcategory,Restaurant)
+        },
 
-            if (duplicate_item !== null) {
-                throw new UserInputError("This item already exists")
-            }
+        deleteMenuItems: async(_,{dmenuItemInput:{restaurant_name,name,category,subcategory}},context) => {
+            const user = await Auth.verifyToken(context,process.env.TOKEN_SECRET)
             
-            try {
-                 
 
-                const newMenuItemStatus = await Rest.Item_adder(Restaurant, [name,restaurant_name,calories,type,price,category,subcategory])
-                console.log('status is ',newMenuItemStatus)
-                /*
-                if (newMenuItemStatus === 'SUCCESS') {
-                    console.log('New Item was added successfully')
-
-                    
-                    const newMenuItem = await Restaurant.findOne(({name: restaurant_name},
-                        {"menu": 
-                        {category_name: category,
-                        "subcategory": 
-                        {"item": {
-                            "$elemMatch": {"item_name": {"$in": name}}
-                        }}
-                        
-                        },
-                    }))
-
-                    return {
-                        id: newMenuItem.id,
-                        ...newMenuItem._doc
-                    }
-                    
-                }
-                
-                
-            } catch (error) {
-                
-                throw new UserInputError('Item addition failed')
+            if (!user) {
+                throw new ApolloError('Session expired')
             }
-            */
+            const present_user = await User.findOne({uid:user.id})
+            
+            const valid_user = Rest.owner_checker(present_user.username,User)
+            
+            if (!valid_user) {
+                throw new ApolloError('Only the owner is permitted to modify menu items!')
+            }
+
+            const vali = await Restaurant.findOne({name: restaurant_name})
+
+            if (!vali) {
+                throw new ApolloError('Please specify a valid restaurant name') 
+            }
+
+            await Rest.Item_remover(Restaurant,[name,restaurant_name,category,subcategory])
         }
     }
 }
