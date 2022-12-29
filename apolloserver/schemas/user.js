@@ -12,8 +12,8 @@ const User = gql`
     type User {
         uid: String!
         _id: ID!
-        username: String!
-        email: String!
+        username: String
+        email: String
         password: String!
         role: Role!
         token: String

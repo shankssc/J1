@@ -19,7 +19,37 @@ export default {
             } catch (error) {
                 throw new ApolloError('Please enter a valid restaurant name')
             }
-        }
+        },
+
+        getItems : async (_, {inp: {restaurant_name,category_name,subcategory_name}}) => {
+            try {
+                const MenuItems = await Restaurant.aggregate([
+                    {$unwind: "$menu"},
+                    {$unwind: "$menu.subcategory"},
+                    {$unwind: "$menu.subcategory.item"},
+                  
+                    {
+                    $match: {
+                        $and: [
+                          {"menu.category_name": category_name},
+                          {"menu.subcategory.subcategory_name": subcategory_name},
+                          {name: restaurant_name}
+                        ]
+                      }
+                  },
+                  {
+                    $replaceRoot: {
+                      newRoot: "$menu.subcategory.item"
+                    }
+                  }
+                ])
+                console.log(MenuItems)
+                return {...MenuItems._doc}
+            }catch (error) {
+                console.log(error)
+                
+            }
+        } 
     },
 
     Mutation: {

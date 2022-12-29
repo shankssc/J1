@@ -17,6 +17,22 @@ const Restaurant = gql`
         address: String!
     }
 
+    type Item {
+        item_name: String!
+        calories: String!
+        type: String!
+        price: String!
+        _id: ID!
+        uid: String!
+    }
+
+    type Restaurant_Menu {
+        restaurant_name: String
+        category_name: String,
+        subcategory_name: String,
+        Items: [Item]
+    }
+
     input RegisteringRestaurants {
         name: String!
         phone: String!
@@ -51,9 +67,16 @@ const Restaurant = gql`
         subcategory: String!
     }
 
+    input ItemInp {
+        restaurant_name: String!
+        category_name: String!
+        subcategory_name: String!
+    }
+
     type Query {
         getRestaurant(rest_id: ID!): Restaurant
         getRestaurants: [Restaurant]
+        getItems(inp: ItemInp) : [Item]
     }
     
     type Mutation {

@@ -1,4 +1,5 @@
-import  {ApolloServer}  from "apollo-server-express"
+import  {ApolloServer }  from "apollo-server-express"
+import { PubSub } from 'graphql-subscriptions'
 import ApolloServerPluginLandingPageLocalDefault  from "apollo-server-core";
 import mongoose from 'mongoose'
 import express from 'express';
@@ -13,13 +14,15 @@ dotenv.config()
 
 const CONNECTION_URL = 'mongodb+srv://shankssc22:Beelzebub%4022@cluster0.y7bao9v.mongodb.net/?retryWrites=true&w=majority'
 
+const pubsub = new PubSub()
+
 const InitServer = async () => {
     const app = express()
 
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        context: ({ req }) => ({ req }),
+        context: ({ req }) => ({ req, pubsub}),
         extensions: [() => new AnalyticsExtension()]
     })   
 

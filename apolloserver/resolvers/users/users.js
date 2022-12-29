@@ -5,10 +5,7 @@ import { ApolloError } from 'apollo-server-express'
 export default {
 
     Query: {
-        getUsers: async () => {
-            const users = await User.find()
-            return users
-        },
+        getUsers: async () => await User.find(),
 
         getUser: async (_, {id}, context) => {
             if (!context.userId) throw new ApolloError('You must be authenticated!')

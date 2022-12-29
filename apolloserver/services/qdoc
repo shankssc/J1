@@ -46,3 +46,19 @@ db.collection.update({
       }
     ]
   })
+
+  db.collection.aggregate({
+    $unwind: "$menu"
+  },
+  {
+    $unwind: "$menu.subcategory"
+  },
+  {
+    $unwind: "$menu.subcategory.item"
+  },
+  {
+    $match: {
+      //"menu.subcategory.subcategory_name": "Tacos"
+      name: "La Una Cantina"
+    }
+  })
