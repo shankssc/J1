@@ -44,7 +44,8 @@ export default {
                   }
                 ])
                 console.log(MenuItems)
-                return {...MenuItems._doc}
+                //return {...MenuItems._doc}
+                return MenuItems
             }catch (error) {
                 console.log(error)
                 
