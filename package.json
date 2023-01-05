@@ -10,7 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
+    "@apollo/client": "^3.7.3",
     "@apollo/react-hooks": "^4.0.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
@@ -19,18 +19,21 @@
     "@react-navigation/stack": "^6.1.1",
     "apollo-client": "^2.6.10",
     "expo": "~44.0.0",
-    "expo-font": "^10.0.5",
+    "expo-font": "^10.2.1",
     "expo-updates": "~0.11.6",
     "graphql": "^16.6.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-file-base64": "^1.0.3",
     "react-native": "^0.69.3",
     "react-native-element-dropdown": "^2.1.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "react-router-dom": "^6.6.1",
+    "react-router-native": "^6.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

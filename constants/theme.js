@@ -9,7 +9,8 @@ export const COLORS = {
   gray: "#74858C",
   tutu: "#ffeff8",
   lavendarBlush: "#ffeff2",
-  gts: "#fee4e6"
+  gts: "#fee4e6",
+  abc: '#fe8aa5'
 
 };
 
