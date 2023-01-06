@@ -2,9 +2,13 @@ import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'r
 import React from 'react'
 import { COLORS, assets } from '../constants'
 import { Button } from 'react-native-elements'
-import Auth from '../screens/Auth'
+import { useLocation,useNavigate } from 'react-router-dom'
 
 const FrontPage = ({ navigation, route }) => {
+  const location = useLocation()
+  const pathname = location.pathname
+  const navigate = useNavigate()
+
   return (
     <SafeAreaView style={{
       width: "100%",
@@ -50,7 +54,8 @@ const FrontPage = ({ navigation, route }) => {
           marginHorizontal: 50,
           marginVertical: 10,
         }}
-        onPress={() => navigation.navigate('Auth')}
+        //onPress={() => navigation.navigate('/auth')}
+        onPress={()=>navigate('/auth')}
         />
         
       </View>

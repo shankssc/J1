@@ -4,10 +4,18 @@ import { Card, Avatar, Input, Button, Overlay  } from 'react-native-elements'
 import Styles from './Styles';
 import { FONTS, SIZES, assets } from '../../constants';
 import {Dropdown} from 'react-native-element-dropdown';
+import { useFonts } from 'expo-font';
 
 import Home from '../../screens/Home';
 
 const Authentication = () => {
+  
+  const [fontsLoaded] = useFonts({
+    'Rigatoni': require('../../assets/fonts/Rigatoni-ExtraBold.ttf'),
+    'Inter-Medium': require('../../assets/fonts/Inter-Medium.ttf'),
+    'Andrea': require('../../assets/fonts/Andrea.ttf'),
+    'Village-Stylish': require('../../assets/fonts/Village-Stylish.ttf')
+  })
 
   const roles = [
     {label: 'Customer', value: '1'},
@@ -41,7 +49,7 @@ const Authentication = () => {
         overflow: "hidden"
       }}>
       
-      <Card.Title>{isSignup?'Sign up': 'Sign in'}</Card.Title>
+      <Card.Title style={{color: '#dc1846'}}>{isSignup?'Sign up': 'Sign in'}</Card.Title>
             
       <View style={{
         marginLeft: "250px",
