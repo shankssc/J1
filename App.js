@@ -27,7 +27,7 @@ const App = () => {
     <ApolloProvider client={client}>
     <NavigationContainer theme={theme}>
       <Stack.Navigator screenOptions={{ headerShown: false}}
-       initialRouteName="CreateRest">
+       initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FrontPage" component={FrontPage} />
         <Stack.Screen name="Auth" component={Auth} />

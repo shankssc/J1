@@ -14,6 +14,7 @@ const Restaurant = gql`
         name: String!
         phone: String!
         owner: String!
+        cover: String
         address: String!
     }
 
@@ -21,6 +22,7 @@ const Restaurant = gql`
         item_name: String!
         calories: String!
         type: String!
+        item_pic: String
         price: String!
         _id: ID!
         uid: String!

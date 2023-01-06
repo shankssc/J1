@@ -8,6 +8,7 @@ const restaurantSchema = mongoose.Schema({
     name: {type: String, required: true, unique: true},
     phone: {type: String, required: true, unique: true},
     owner: {type: String, required: true},
+    cover: {type: String},
     address: {type: String, required: true, unique: true},
     menu: [{
         uid: {type: String, default:uuid.v4, unique: true},
@@ -22,6 +23,7 @@ const restaurantSchema = mongoose.Schema({
                 item_name: {type: String, unique: true},
                 calories: {type: String},
                 type: {type: String, enum: ['VEGAN', 'VEG', 'NON_VEG']},
+                item_pic: {type: String},
                 price: {type: String},
             }]
         }]
