@@ -13,6 +13,7 @@ import Auth from './screens/Auth'
 import Rest from './screens/Rest'
 import CreateRest from './screens/CreateRest';
 
+
 const Stack = createStackNavigator();
 
 const theme = {
@@ -41,6 +42,7 @@ const App = () => {
   );
   */
   return (
+    <ApolloProvider client={client}>
     <BrowserRouter>
       <Routes>
       <Route exact path='/' element={<FrontPage/>} />
@@ -49,6 +51,7 @@ const App = () => {
       <Route exact path='/createRest' element={<CreateRest/>} />
       </Routes>
     </BrowserRouter>
+    </ApolloProvider>
   )
 }
 

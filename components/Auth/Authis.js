@@ -5,24 +5,14 @@ import Styles from './Styles';
 import { FONTS, SIZES, assets } from '../../constants';
 import {Dropdown} from 'react-native-element-dropdown';
 import { useFonts } from 'expo-font';
-import { gql } from 'graphql-tag';
-import { useMutation } from '@apollo/react-hooks';
+import { gql, useMutation } from '@apollo/client'
+//import { useMutation } from '@apollo/react-hooks';
 import { useForm, Controller } from 'react-hook-form'
 
 import Home from '../../screens/Home';
 
-const Authentication = () => {
+const Authis = () => {
   
-  /*const {control, handleSubmit, errors, reset} = useForm({
-    defaultValues: {
-      'name':"",
-      'email':"",
-      'password':"",
-      'confirmPassword':""
-
-    }
-  })*/
-
   const [fontsLoaded] = useFonts({
     'Rigatoni': require('../../assets/fonts/Rigatoni-ExtraBold.ttf'),
     'Inter-Medium': require('../../assets/fonts/Inter-Medium.ttf'),
@@ -37,7 +27,7 @@ const Authentication = () => {
     {label: 'Admin', value: 'ADMINISTRATOR'},
   ]
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const [isSignup, setIsSignup] = useState(true);
   const [dropdown, setDropdown] = useState(null);
   const [selected, setSelected] = useState([]);
@@ -56,24 +46,39 @@ const Authentication = () => {
     setFormData(formData => ({ ...formData, [event.target.name]: event.target.value }))
   }
 
+  const {control, handleSubmit, errors, reset, getValues} = useForm({
+    defaultValues: {
+      'username':"",
+      'email':"",
+      'password':"",
+      'confirmPassword':""
+
+    },mode:'onBlur'
+  })
+
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
       console.log(result)
     },
     variables: {
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
+      username: getValues("username"),
+      email: getValues("email"),
+      password: getValues("password"),
       role: dropdown
     }
   })
 
-  
+  const submit = (data) => {
+    console.log(data)
+    addUser()
+    reset()
+  }
+  /*
   const handleSubmit = (e) => {
     e.preventDefault()
     addUser()
     navigate('/home')
-  }
+  }*/
   
   return (
     <SafeAreaView>
@@ -107,46 +112,72 @@ const Authentication = () => {
       {
         isSignup ?
         <View>
-        
-        <TextInput
-        placeholder=' username'
+        <Controller 
+        control={control}
         name="username"
-        label="username"
-        style={Styles.input}
-        value={formData.username}
-        onChangeText={(value) => setFormData(value)}
-        autoFocus half
-      />
-      
-      
-      <TextInput
-        placeholder=' email'
+        render={({field: {onChange, value, onBlur}}) => (
+            <TextInput
+                placeholder=' username'
+                style={Styles.input}
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+                autoFocus half
+            />
+            )}
+        />
+
+        <Controller 
+        control={control}
         name="email"
-        label="email"
-        style={Styles.input}
-        keyboardType="email-address"
-        value={formData.email}
-        onChangeText={(value) => setFormData(value)}
-      />
+        render={({field: {onChange, value, onBlur}}) => (
+            <TextInput
+                placeholder=' email'
+                style={Styles.input}
+                value={value}
+                onBlur={onBlur}
+                keyboardType='email-address'
+                onChangeText={(value) => onChange(value)}
+                autoFocus half
+            />
+            )}
+        />
       
 
-      <TextInput
-        placeholder=' password'
+      <Controller 
+        control={control}
         name="password"
-        label="password"
-        style={Styles.input}
-        value={formData.password}
-        onChangeText={(value) => setFormData(value)}
-      />
+        render={({field:{onChange, value, onBlur}}) => (
+            <TextInput
+                placeholder=' password'
+                style={Styles.input}
+                value={value}
+                onBlur={onBlur}
+                secureTextEntry={showPassword}
+                right={<TextInput.Icon name={showPassword ? "eye" : "eye-off"}
+                onPress={() => setShowPassword(!showPassword)} />}
+                onChangeText={(value) => onChange(value)}
+                autoFocus half
+            />
+            )}
+        />
       
-      <TextInput
-        placeholder=' confirm password'
-        name="confirm password"
-        label="confirm password"
-        style={Styles.input}
-        value={formData.confirmPassword}
-        onChangeText={(value) => setFormData(value)}
-      />
+      <Controller 
+        control={control}
+        name="confirmPassword"
+        render={({field:{onChange, value, onBlur}}) => (
+            <TextInput
+                placeholder=' confirm password'
+                style={Styles.input}
+                value={value}
+                type='password'
+                onBlur={onBlur}
+                secureTextEntry={showPassword}
+                onChangeText={(value) => onChange(value)}
+                autoFocus half
+            />
+            )}
+        />
       
 
       <View style={{flexDirection:"row", marginTop: 10, marginBottom: 10}}>
@@ -165,7 +196,7 @@ const Authentication = () => {
           width: 100,
           marginRight: 50
         }}
-        onPress={() => handleSubmit}
+        onPress={handleSubmit(submit)}
         />
 
       <Dropdown 
@@ -183,23 +214,37 @@ const Authentication = () => {
           :
 
       <View>
-        <TextInput
-        placeholder=' username'
-        style={Styles.input}
+        <Controller 
+        control={control}
         name="username"
-        label="username"
-        value={formData.username}
-        onChangeText={(value) => setFormData(value)}
-      />
+        render={({field:{onChange, value, onBlur}}) => (
+            <TextInput
+                placeholder=' username'
+                style={Styles.input}
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+                autoFocus half
+            />
+            )}
+        />
 
-      <TextInput
-        placeholder=' password'
-        style={Styles.input}
+        <Controller 
+        control={control}
         name="password"
-        label="password"
-        value={formData.password}
-        onChangeText={(value) => setFormData(value)}
-      />
+        render={({field:{onChange, value, onBlur}}) => (
+            <TextInput
+                placeholder=' password'
+                style={Styles.input}
+                value={value}
+                type='password'
+                onBlur={onBlur}
+                secureTextEntry={showPassword}
+                onChangeText={(value) => onChange(value)}
+                autoFocus half
+            />
+            )}
+        />
       
       <View style={{flexDirection:"row", marginTop: 10, marginBottom: 10}}>
       
@@ -233,13 +278,8 @@ const Authentication = () => {
   )
 }
 
+
 const REGISTER_USER = gql`
-  enum Role {
-    CUSTOMER
-    BUSINESS_OWNER
-    CARRIER
-    ADMINISTRATOR
-  }
   mutation signup(
     $username: String!
     $email: String!
@@ -256,9 +296,10 @@ const REGISTER_USER = gql`
       }
     )
     {
-      id email username token
+      _id email username token
     }
   }
 `
 
-export default Authentication
+
+export default Authis

@@ -2,6 +2,7 @@ import { View, Text, SafeAreaView } from 'react-native'
 import React,{ useState } from 'react'
 import { COLORS, assets } from '../constants'
 import Authentication  from '../components/Auth/Authentication'
+import Authis from '../components/Auth/Authis'
 import { Avatar, Input, Button } from 'react-native-elements'
 
 const Auth = () => {
@@ -19,7 +20,7 @@ const Auth = () => {
       
     }}>
     <View>
-      <Authentication />
+      <Authis />
 
     </View>
     
