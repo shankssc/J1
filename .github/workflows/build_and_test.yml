@@ -69,6 +69,7 @@ jobs:
 
       - name: Build
         run: |
+          cd client
           eas build --local \
             --non-interactive \
             --output=./out \
