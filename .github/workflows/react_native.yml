@@ -1,10 +1,13 @@
 name: "J1 Frontend"
 
 on:
-  push: [main]
+  push:
+    branches:
+      - main
 
   workflow_dispatch:
-    branches: [dev]
+    branches:
+      - dev
     # Can add push
 
 jobs:
