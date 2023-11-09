@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "ts:check": "tsc",
-    "build": "expo build:android && expo build:ios"
+    "build": "eas build -p androids"
   },
   "dependencies": {
     "expo": "~49.0.15",
