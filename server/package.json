@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev ./src/index.ts",
+    "test": "NODE_ENV=testing jest --no-cache --coverage --silent --passWithNoTests --detectOpenHandles --forceExit",
+    "start": "node ./src/index.ts",
+    "build": "npm-run-all clean tsc tsc-alias"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
