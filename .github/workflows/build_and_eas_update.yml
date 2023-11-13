@@ -1,5 +1,4 @@
-aname: Build and EAS Update
-
+name: Build and EAS Update
 on:
   workflow_dispatch:
     inputs:
