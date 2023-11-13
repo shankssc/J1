@@ -75,6 +75,7 @@ jobs:
             --output=./out \
             --platform=${{ matrix.platform }} \
             --profile=${{ github.event.inputs.profile }}
+            --verbose
 
       - name: Upload binary
         uses: actions/upload-artifact@v2
