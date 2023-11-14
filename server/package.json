@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "clean": "rimraf dist",
     "dev": "ts-node-dev ./src/index.ts",
     "test": "jest --runInBand",
     "start": "ts-node ./src/index.ts",
@@ -72,6 +73,7 @@
     "mongodb-memory-server": "^8.12.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.6",
