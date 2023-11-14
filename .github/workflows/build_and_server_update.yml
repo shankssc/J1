@@ -1,0 +1,34 @@
+name: Build and Server Update
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        type: choice
+        description: Build profile to use
+        options:
+          - development
+          - preview
+          - production
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: [18.x]
+
+      - name: Install dependencies
+        run: npm --prefix server install
+
+      - name: Test
+        run: npm --prefix server run test
+
+      - name: Build
+        run: |
+          cd server
+          npm run build
