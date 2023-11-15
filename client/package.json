@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "ts:check": "tsc",
     "build": "eas build --platform android",
-    "test": "jest",
+    "test": "jest --runInBand",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint-fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write ."

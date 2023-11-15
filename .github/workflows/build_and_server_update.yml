@@ -25,6 +25,11 @@ jobs:
       - name: Install dependencies
         run: npm --prefix server install
 
+      - name: Load the Environment Variables
+        run: |
+          echo "PORT=5000" >> server/.env
+          echo "CONNECTION_STRING=${{ secrets.CONNECTION_STRING }}" >> server/.env
+
       - name: Test
         run: npm --prefix server run test
 
