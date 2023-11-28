@@ -1,0 +1,19 @@
+[build]
+    base = "/"
+    command = "npm run lambda:build"
+    functions = "netlify/functions/actions"
+    publish = "/dist/"
+    [build.environment]
+        NODE_VERSION = "18"
+[functions]
+    node_bundler = "esbuild"
+[[redirects]]
+    force = true
+    from = "/.netlify/functions/*"
+    to = "/.netlify/functions/:splat"
+    status = 200
+
+[[redirects]]
+    from = "/*"
+    status = 200
+    to = "/index.html"

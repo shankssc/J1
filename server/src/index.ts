@@ -9,6 +9,7 @@ import { expressMiddleware } from '@apollo/server/express4';
 import http from 'http';
 import cors from 'cors';
 import { typeDefs, resolvers } from './utils/dummySchema';
+// import serverless from '@netlify/functions';
 
 interface MyContext {
   token?: String;
@@ -21,24 +22,17 @@ const initializeServer = async () => {
 
   const app = express();
   const httpServer = http.createServer(app);
-
+  
   const server = new ApolloServer<MyContext>({
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    
   });
 
   await server.start();
 
   try {
-    /*
-    const options: ConnectOptions = {
-        // useNewUrlParser: true, 
-        useUnifiedTopology: true
-
-    }
-    */
-   
     await mongoose.connect(process.env.CONNECTION_URL!);
     // console.log('Mongoose connection was successful');
         
@@ -47,6 +41,7 @@ const initializeServer = async () => {
 }
 
   app.use(
+    // '/.netlify/functions/graphql',
     '/graphql',
     cors<cors.CorsRequest>(),
     express.json(),
@@ -61,3 +56,4 @@ const initializeServer = async () => {
 
 // Call the async function immediately
 initializeServer().catch((error) => console.error(error));
+// export const handler = serverless(initializeServer);
