@@ -1,6 +1,24 @@
 {
+  "api": {
+    "j1eatsbackend": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
-    "J1Events": {
+    "J1EatsBackend": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -18,16 +36,14 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL",
-          "ADDRESS",
-          "BIRTHDATE",
           "GENDER",
-          "NAME",
-          "FAMILY_NAME",
-          "PHONE_NUMBER",
-          "PICTURE"
+          "EMAIL",
+          "BIRTHDATE",
+          "PHONE_NUMBER"
         ],
-        "socialProviders": [],
+        "socialProviders": [
+          "GOOGLE"
+        ],
         "usernameAttributes": [
           "EMAIL"
         ],
