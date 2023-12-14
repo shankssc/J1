@@ -4,5 +4,5 @@
     "strict": true,
     "jsx": "react-native"
   },
-  "include": ["**/*.ts", "**/*.tsx", "my-app.d.ts", "./src/global.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "my-app.d.ts", "src/**/*.types.ts"]
 }

@@ -136,7 +136,7 @@ const App = () => {
   );
   */
   return (
-    <SafeAreaView>
+    
       <ApplicationProvider {...eva} theme={eva.light}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Auth'>
@@ -145,7 +145,7 @@ const App = () => {
         </Stack.Navigator>
       </NavigationContainer>
       </ApplicationProvider>
-    </SafeAreaView>
+    
   );
 };
 
