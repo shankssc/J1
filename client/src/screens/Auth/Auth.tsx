@@ -40,6 +40,15 @@ const Auth = ():React.ReactElement => {
     
     const authToggleState = useToggleState();
 
+    const useSelectState = (initialState = undefined) => {
+        const [selectedIndex, setSelectedIndex] = React.useState(initialState);
+        return { selectedIndex, onSelect: setSelectedIndex };
+    };
+
+    const selectedRoleState = useSelectState();
+
+
+
     return (
         <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -56,16 +65,37 @@ const Auth = ():React.ReactElement => {
 
                     <Toggle status="info" {...authToggleState} style={Styles.toggle}/>
 
-                    <MyInput label="email" placeholder='enter a valid email' value="" onChangeText={() => {}} style={[Styles.input]}/>
+                    <MyInput label="username" placeholder='enter a valid username' value="" onChangeText={() => {}} style={[Styles.input]}/>
 
+                    <MyInput label="email" placeholder='enter a valid email' value="" onChangeText={() => {}} style={[Styles.input]}/>
+                    
+                    { isSignup && (
+                    <>
                     <MyInput label="phone" placeholder='enter a valid phone number' value="" onChangeText={() => {}} style={[Styles.input]}/>
+                    </>
+                    )}
 
                     <MyInput label="password" placeholder='enter a valid password' value="" onChangeText={() => {}} style={[Styles.input]}/>
-
+                    
+                    { isSignup && (
+                    <>
                     <Text style={{ color: globalStyle.colors.accent, marginBottom: 10 }}>Date of Birth</Text>
  
                     <Datepicker placeholder='pick your birthday!' date={date} onSelect={nextDate => setDate(nextDate)} accessoryRight={<Icon library='Ionicons' name='calendar' size={20} color={globalStyle.primary}/>} />
 
+                    <Select
+                    label={() => <Text style={Styles.selectLabel}>Gender</Text>}
+                    // caption={() => <Text style={Styles.selectLabel}>Please select your gender</Text>}
+                    style={Styles.select}
+                    selectedIndex={selectedRoleState.selectedIndex}
+                    >
+                        <SelectItem title="Male" accessoryRight={() => <Icon library='Ionicons' name="male" size={20} color={globalStyle.primary}/>} style={{ flexDirection: 'row', alignItems: 'center' }}/>
+                        <SelectItem title="Female" accessoryRight={() => <Icon library='Ionicons' name="female" size={20} color={globalStyle.primary}/>} style={{ flexDirection: 'row', alignItems: 'center' }}/>
+                        <SelectItem title="Other" accessoryRight={() => <Icon library='FontAwesome' name="genderless" size={20} color={globalStyle.primary}/>} style={{ flexDirection: 'row', alignItems: 'center' }}/>
+                    </Select>
+                    </>
+                    )}
+                    
                     <Button style={Styles.button} onPress={() => {}}>
                         <Text style={Styles.buttonText}>SUBMIT</Text>
                     </Button>

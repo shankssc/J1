@@ -38,7 +38,7 @@ const Styles = StyleSheet.create({
 
     selectLabel: {
         color: globalStyle.colors.accent,
-        marginBottom: 1,
+        marginBottom: 10,
     },
 
     button: {
