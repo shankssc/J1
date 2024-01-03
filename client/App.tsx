@@ -24,7 +24,8 @@ import 'react-native-get-random-values';
 import { nanoid } from 'nanoid';
 
 import Home from './src/screens/Home/Home';
-import Auth from './src/screens/Auth/Auth';
+import SignUp from './src/screens/Auth/SignUp';
+import SignIn from './src/screens/Auth/SignIn';
 
 Amplify.configure(amplifyconfig);
 
@@ -139,9 +140,10 @@ const App = () => {
     
       <ApplicationProvider {...eva} theme={eva.light}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Auth'>
+        <Stack.Navigator initialRouteName='SignUp'>
           <Stack.Screen name='Home' component={Home}/>
-          <Stack.Screen name='Auth' component={Auth}/>
+          <Stack.Screen name='SignUp' component={SignUp}/>
+          <Stack.Screen name='SignIn' component={SignIn}/>
         </Stack.Navigator>
       </NavigationContainer>
       </ApplicationProvider>
