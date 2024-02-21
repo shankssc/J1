@@ -22,10 +22,14 @@ import amplifyconfig from './src/amplifyconfiguration.json';
 import 'react-native-url-polyfill/auto';
 import 'react-native-get-random-values';
 import { nanoid } from 'nanoid';
+import { Provider, useSelector } from 'react-redux';
+import store from './src/store';
+import { selectUser } from './src/reducers/user';
 
 import Home from './src/screens/Home/Home';
 import SignUp from './src/screens/Auth/SignUp';
 import SignIn from './src/screens/Auth/SignIn';
+import Verification from './src/screens/Auth/Verification';
 
 Amplify.configure(amplifyconfig);
 
@@ -70,11 +74,14 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   const [formState, setFormState] = useState<Todo>(initialState);
   const [todos, setTodos] = useState<Todo[]>([]);
-
+  const user = useSelector(selectUser);
+  
+  /*
   useEffect(() => {
     fetchTodos();
   }, []);
 
+  
   function setInput(key: keyof Todo, value: string) {
     setFormState({ ...formState, [key]: value });
   }
@@ -107,6 +114,7 @@ const App = () => {
       console.log('error creating todo:', err);
     }
   }
+  */
   /*
   return (
     <SafeAreaView style={styles.container}>
@@ -136,22 +144,38 @@ const App = () => {
     </SafeAreaView>
   );
   */
+  
   return (
-    
-      <ApplicationProvider {...eva} theme={eva.light}>
+    <ApplicationProvider {...eva} theme={eva.light}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='SignUp'>
-          <Stack.Screen name='Home' component={Home}/>
-          <Stack.Screen name='SignUp' component={SignUp}/>
-          <Stack.Screen name='SignIn' component={SignIn}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-      </ApplicationProvider>
-    
+          <Stack.Navigator initialRouteName={user.email ? 'Home' : 'SignIn'}>
+            {user.email ? (
+              <>
+                <Stack.Screen name='Home' component={Home} />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name='SignUp' component={SignUp} />
+                <Stack.Screen name='SignIn' component={SignIn} />
+                <Stack.Screen name='Verify' component={Verification} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+    </ApplicationProvider>
   );
 };
 
-export default App;
+
+const AppWrapper = () => {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+};
+
+export default AppWrapper;
 
 /*
 const styles = StyleSheet.create({

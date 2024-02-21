@@ -13,7 +13,7 @@ const MyInput:React.FC<MyInputProps> = ({
   placeholderTextColor = globalStyle.colors.accent,
   styles,
   ...props
-}) => {
+}, ref) => {
     const inputTextColor = globalStyle.colors.accent;
 
     return (
@@ -28,6 +28,7 @@ const MyInput:React.FC<MyInputProps> = ({
         textStyle={{ color: inputTextColor }} // Set default input text color
         style={[styles?.input, containerStyle]}
         placeholderTextColor={placeholderTextColor}
+        // autoFocus={true}
         {...props}
       />
     </>

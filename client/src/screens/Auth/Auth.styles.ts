@@ -30,6 +30,16 @@ const Styles = StyleSheet.create({
         backgroundColor: globalStyle.colors.input,
     },
 
+    verificationInput: {
+        width:45,
+        height:20,
+        borderWidth: 3,
+        borderRadius: 12,
+        backgroundColor: globalStyle.colors.input,
+        marginHorizontal: 5,
+        marginVertical: 30
+    },
+
     select: {
         marginTop: 10,
         marginBottom: 10,

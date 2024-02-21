@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback, 
-         ScrollView, 
+         ScrollView,
+         TouchableOpacity, 
          KeyboardAvoidingView, 
          Platform } from 'react-native';
 import {
@@ -22,16 +23,54 @@ import MyInput from '../../components/Input';
 import Icon from '../../components/Icons';
 import Home from '../Home/Home';
 import globalStyle from '../../styles/globalStyle';
-import { SignUpParameters,SignInParameters } from '../Screens.types';
+import { SignInParameters } from '../Screens.types';
+import { handleSignIn } from './Auth.API';
+import { useDispatch } from 'react-redux';
+import { auth } from '../../reducers/user';
 
-const SignIn = ():React.ReactElement => {
-    const [showPassword, setShowPassword] = React.useState<boolean>(true);
+const SignIn = ({ navigation }:any):React.ReactElement => {
+    const [showPassword, setShowPassword] = React.useState<boolean>(false);
     
     const { register, handleSubmit, control, formState: { errors } } = useForm<SignInParameters>();
-
+    
+    const dispatch = useDispatch();
+    
     const onSubmit = (data:SignInParameters) => {
-        console.log(data);
+        try {
+            
+            console.log(data);
+            const user = handleSignIn({
+                username: data.email,
+                password: data.password
+            });
+
+            const payload = {
+                email: data.email,
+            }
+            
+            console.log('SignIn successful:', user);
+
+            dispatch(auth(payload));
+
+            navigation.navigate("Home");
+
+        } catch (error) {
+            console.log('Error authenticating:', error);
+        }
+        
     }
+
+    const toggleSecureEntry = (): void => {
+        setShowPassword(!showPassword);
+    };
+
+    const renderPassIcon = () => {
+        return (
+            <TouchableOpacity onPress={toggleSecureEntry}>
+                <Icon library='Ionicons' name={showPassword ? 'eye-off' : 'eye'} size={22} color={globalStyle.colors.accent}/>
+            </TouchableOpacity>
+        )
+    };
 
     return (
         <KeyboardAvoidingView
@@ -53,15 +92,15 @@ const SignIn = ():React.ReactElement => {
                             required: true,
                         }}
                         render={({ field, fieldState, formState }) => (
-                            <MyInput
-                                label="username"
-                                placeholder="enter a valid username"
+                            <MyInput 
+                                label="email" 
+                                placeholder='enter a valid email' 
                                 value={field.value}
-                                onChangeText={(text) => field.onChange(text)}
+                                onChangeText={(text) => field.onChange(text)} 
                                 style={[Styles.input]}
                             />
-                        )}
-                        name="username"
+                    )}
+                        name="email"
                     />
 
 
@@ -76,7 +115,10 @@ const SignIn = ():React.ReactElement => {
                         placeholder='enter a valid password' 
                         value={field.value}
                         onChangeText={(text) => field.onChange(text)} 
-                        style={[Styles.input]}/>
+                        style={[Styles.input]}
+                        accessoryRight={renderPassIcon}
+                        secureTextEntry={!showPassword}
+                        />
                     )}
                         name="password"
                     />

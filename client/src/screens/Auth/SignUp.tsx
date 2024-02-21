@@ -1,7 +1,8 @@
 import React from 'react';
 import { TouchableWithoutFeedback, 
          ScrollView, 
-         KeyboardAvoidingView, 
+         KeyboardAvoidingView,
+         TouchableOpacity, 
          Platform } from 'react-native';
 import {
         Select,
@@ -20,14 +21,17 @@ import { useForm, Controller } from "react-hook-form";
 import Styles from './Auth.styles';
 import MyInput from '../../components/Input';
 import Icon from '../../components/Icons';
-import Home from '../Home/Home';
 import globalStyle from '../../styles/globalStyle';
 import { SignUpParameters,GenderStore } from '../Screens.types';
 import { handleSignUp } from './Auth.API';
+import { validateSignUp } from './Auth.validation';
+import { auth } from '../../reducers/user';
+import { useDispatch } from 'react-redux';
 
-const SignUp = ():React.ReactElement => {
-    const [showPassword, setShowPassword] = React.useState<boolean>(true);
+const SignUp = ({ navigation }:any):React.ReactElement => {
+    const [showPassword, setShowPassword] = React.useState<boolean>(false);
     const [date, setDate] = React.useState(new Date());
+    const dispatch = useDispatch();
 
     const useToggleState = (initialState = false): ToggleProps => {
         const [checked, setChecked] = React.useState(initialState);
@@ -61,6 +65,8 @@ const SignUp = ():React.ReactElement => {
             console.log("selected gender", genders[data.gender?.row]);
             //@ts-ignore
             let gen = genders[data.gender?.row];
+            //@ts-ignore
+            let formattedDate = data.birthdate.toLocaleDateString();
 
             const user = await handleSignUp({
                 username: data.email,
@@ -69,16 +75,37 @@ const SignUp = ():React.ReactElement => {
                 phone_number: data.phone_number,
                 //@ts-ignore
                 gender: gen,
-                birthdate: data.birthdate,
+                birthdate: formattedDate,
             });
-    
+            
+            const payload = {
+                email: data.email,
+            }
+
+            dispatch(auth(payload));
+
             // Continue with any logic you need after successful signup
             console.log('Signup successful:', user);
+
+            navigation.navigate("Verify");
+            
         } catch (error) {
             console.log('Error signing up:', error);
             // Handle error, e.g., display an error message to the user
         }
     }
+
+    const toggleSecureEntry = (): void => {
+        setShowPassword(!showPassword);
+    };
+
+    const renderPassIcon = () => {
+        return (
+            <TouchableOpacity onPress={toggleSecureEntry}>
+                <Icon library='Ionicons' name={showPassword ? 'eye-off' : 'eye'} size={22} color={globalStyle.colors.accent}/>
+            </TouchableOpacity>
+        )
+    };
 
     return (
         <KeyboardAvoidingView
@@ -93,25 +120,6 @@ const SignUp = ():React.ReactElement => {
                 />
                 <Card style={Styles.card}>
                     <Text category="h5" style={Styles.text}>Sign up</Text>
-
-                    
-                    <Controller
-                        control={control}
-                        rules={{
-                            required: true,
-                        }}
-                        render={({ field, fieldState, formState }) => (
-                            <MyInput
-                                label="username"
-                                placeholder="enter a valid username"
-                                value={field.value}
-                                onChangeText={(text) => field.onChange(text)}
-                                style={[Styles.input]}
-                            />
-                        )}
-                        name="username"
-                    />
-
                     
                     <Controller
                         control={control}
@@ -160,7 +168,10 @@ const SignUp = ():React.ReactElement => {
                         placeholder='enter a valid password' 
                         value={field.value}
                         onChangeText={(text) => field.onChange(text)} 
-                        style={[Styles.input]}/>
+                        style={[Styles.input]}
+                        accessoryRight={renderPassIcon}
+                        secureTextEntry={!showPassword}
+                        />
                     )}
                         name="password"
                     />

@@ -8,11 +8,20 @@ export type SignUpParameters = {
 };
 
 export type SignInParameters = {
-  username: string;
+  email: string;
   password: string;
 };
 
 export type GenderStore = {
   [key: number]: string;
 };
+
+export type EmailVerification = {
+  verification_number_1: string;
+  verification_number_2: string;
+  verification_number_3: string;
+  verification_number_4: string;
+  verification_number_5: string;
+  verification_number_6: string;
+}
   
