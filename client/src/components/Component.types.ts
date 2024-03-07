@@ -14,7 +14,8 @@ export interface IconProps<T extends keyof typeof iconLibs> {
     name: string;
     size?: number;
     color?: string;
-}
+};
+
 export interface MyInputProps extends InputProps {
     label: string;
     placeholder: string;
@@ -23,4 +24,15 @@ export interface MyInputProps extends InputProps {
     containerStyle?: ViewStyle;
     placeholderTextColor?: string; // Custom prop for placeholder text color
     styles?: {input: StyleProp<ViewStyle>};
-}
+};
+
+export interface ModalProps {
+    visible: boolean;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    message: string;
+    buttonText: string;
+    cardStyle?: object;
+    textStyle?: object;
+    buttonStyle?: object;
+    avatarStyle?: object;
+};

@@ -4,19 +4,25 @@ import { BottomNavigation, BottomNavigationTab, Layout, Text } from '@ui-kitten/
 import Icon from '../../components/Icons';
 import { View,TouchableWithoutFeedback  } from 'react-native';
 import globalStyle from '../../styles/globalStyle';
+import { useDispatch,useSelector } from 'react-redux';
+import {selectUser} from '../../reducers/user'
+import DeliveryToggle from './DeliveryToggle';
 
 const Home = ({ navigation }: any): React.ReactElement => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-
+  const userStore = useSelector(selectUser);
+  console.log("User store home", userStore)
   
   return (
     <Layout style={Styles.container}>
-      <View >
+      <View style={Styles.topLeftSection}>
       <Text category="h7" style={{marginRight:8}}>Deliver now</Text>
-      <View >
-    
-    
-    <View>
+      <View style={Styles.addressContainer}>
+      <Icon name="person-pin-circle" library='MaterialIcons' size={25} color={globalStyle.colors.primary}/>
+
+      
+    <View style={Styles.toggleContainer}>
+      <DeliveryToggle />
     </View>
     </View>
       </View>

@@ -148,18 +148,13 @@ const App = () => {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName={user.email ? 'Home' : 'SignIn'}>
-            {user.email ? (
-              <>
+          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Home">
+            
                 <Stack.Screen name='Home' component={Home} />
-              </>
-            ) : (
-              <>
                 <Stack.Screen name='SignUp' component={SignUp} />
                 <Stack.Screen name='SignIn' component={SignIn} />
                 <Stack.Screen name='Verify' component={Verification} />
-              </>
-            )}
+
           </Stack.Navigator>
         </NavigationContainer>
     </ApplicationProvider>

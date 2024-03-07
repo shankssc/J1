@@ -18,20 +18,27 @@ import {
         Datepicker
         } from '@ui-kitten/components';
 import { useForm, Controller } from "react-hook-form";
+
 import Styles from './Auth.styles';
 import MyInput from '../../components/Input';
 import Icon from '../../components/Icons';
+import CustomModal from '../../components/Modal';
 import globalStyle from '../../styles/globalStyle';
+
 import { SignUpParameters,GenderStore } from '../Screens.types';
 import { handleSignUp } from './Auth.API';
 import { validateSignUp } from './Auth.validation';
 import { auth } from '../../reducers/user';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
+import {selectUser} from '../../reducers/user'
+
 
 const SignUp = ({ navigation }:any):React.ReactElement => {
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
     const [date, setDate] = React.useState(new Date());
     const dispatch = useDispatch();
+    const [isSuccessModalVisible, setIsSuccessModalVisible] = React.useState<boolean>(false);
+    const userStore = useSelector(selectUser);
 
     const useToggleState = (initialState = false): ToggleProps => {
         const [checked, setChecked] = React.useState(initialState);
@@ -41,6 +48,10 @@ const SignUp = ({ navigation }:any):React.ReactElement => {
         };
     
         return { checked, onChange: onCheckedChange };
+    };
+
+    const toggleSuccessModal = () => {
+        setIsSuccessModalVisible(!isSuccessModalVisible);
     };
 
     const useSelectState = (initialState = undefined) => {
@@ -67,8 +78,12 @@ const SignUp = ({ navigation }:any):React.ReactElement => {
             let gen = genders[data.gender?.row];
             //@ts-ignore
             let formattedDate = data.birthdate.toLocaleDateString();
+            
+            const payload = {
+                email: data.email,
+            }
 
-            const user = await handleSignUp({
+            await handleSignUp({
                 username: data.email,
                 password: data.password,
                 email: data.email,
@@ -77,16 +92,11 @@ const SignUp = ({ navigation }:any):React.ReactElement => {
                 gender: gen,
                 birthdate: formattedDate,
             });
-            
-            const payload = {
-                email: data.email,
-            }
 
             dispatch(auth(payload));
+            toggleSuccessModal();
 
-            // Continue with any logic you need after successful signup
-            console.log('Signup successful:', user);
-
+            console.log("User store after auth", userStore)
             navigation.navigate("Verify");
             
         } catch (error) {
@@ -112,6 +122,12 @@ const SignUp = ({ navigation }:any):React.ReactElement => {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
+        <CustomModal
+        visible={isSuccessModalVisible}
+        setVisible={toggleSuccessModal}
+        message="Your signup was successful!"
+        buttonText="OK"
+      />
         <ScrollView>
             <Layout style={Styles.container}>
                 <Avatar 
@@ -226,6 +242,7 @@ const SignUp = ({ navigation }:any):React.ReactElement => {
                 </Card>
             </Layout>
         </ScrollView>
+        
         </KeyboardAvoidingView>
     );
 }
