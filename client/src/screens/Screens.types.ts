@@ -24,4 +24,8 @@ export type EmailVerification = {
   verification_number_5: string;
   verification_number_6: string;
 }
-  
+
+export type GeoLocation = {
+      latitude: null;
+      longitude: null;
+}

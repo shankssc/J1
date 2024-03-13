@@ -30,6 +30,7 @@ import Home from './src/screens/Home/Home';
 import SignUp from './src/screens/Auth/SignUp';
 import SignIn from './src/screens/Auth/SignIn';
 import Verification from './src/screens/Auth/Verification';
+import Profile from './src/screens/Profile/Profile';
 
 Amplify.configure(amplifyconfig);
 
@@ -148,12 +149,13 @@ const App = () => {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Home">
+          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Profile">
             
                 <Stack.Screen name='Home' component={Home} />
                 <Stack.Screen name='SignUp' component={SignUp} />
                 <Stack.Screen name='SignIn' component={SignIn} />
                 <Stack.Screen name='Verify' component={Verification} />
+                <Stack.Screen name='Profile' component={Profile}/>
 
           </Stack.Navigator>
         </NavigationContainer>

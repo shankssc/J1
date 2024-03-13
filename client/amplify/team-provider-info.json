@@ -12,9 +12,6 @@
       "AmplifyAppId": "d1cdhlo19o915o"
     },
     "categories": {
-      "api": {
-        "j1eatsbackend": {}
-      },
       "auth": {
         "J1EatsBackend": {}
       }
