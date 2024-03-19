@@ -24,6 +24,7 @@ import 'react-native-get-random-values';
 import { nanoid } from 'nanoid';
 import { Provider, useSelector } from 'react-redux';
 import store from './src/store';
+import { ThemeContext } from './theme-context';
 import { selectUser } from './src/reducers/user';
 
 import Home from './src/screens/Home/Home';
@@ -76,7 +77,13 @@ const App = () => {
   const [formState, setFormState] = useState<Todo>(initialState);
   const [todos, setTodos] = useState<Todo[]>([]);
   const user = useSelector(selectUser);
+  const [theme, setTheme] = React.useState('light');
   
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+  };
+
   /*
   useEffect(() => {
     fetchTodos();
@@ -147,7 +154,8 @@ const App = () => {
   */
   
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ApplicationProvider {...eva} theme={eva[theme]}>
       <NavigationContainer>
           <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Profile">
             
@@ -160,6 +168,7 @@ const App = () => {
           </Stack.Navigator>
         </NavigationContainer>
     </ApplicationProvider>
+    </ThemeContext.Provider>
   );
 };
 

@@ -1,10 +1,16 @@
 import { StyleSheet } from 'react-native';
+import { useContext } from 'react';
 import globalStyle from '../../styles/globalStyle';
+import { ThemeContext } from '../../../theme-context';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: globalStyle.colors.background,
+    },
+    containerDark: {
+        flex: 1,
+        backgroundColor: globalStyle.colors.darkBackground,
     },
     topRow: {
         flexDirection: 'row',
@@ -42,6 +48,13 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         width: 110,
         backgroundColor: globalStyle.colors.input
+    },
+    ThumbnailCardDark: {
+        margin: 5,
+        borderRadius: 15,
+        alignContent: 'center',
+        width: 110,
+        backgroundColor: globalStyle.colors.primaryDark
     },
     cardText: {
         fontWeight: '500',

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 //@ts-ignore
 import SwitchSelector from "react-native-switch-selector";
 import globalStyle from '../../styles/globalStyle';
+import { ThemeContext } from '../../../theme-context';
 
 var dayIcon = require('../../../assets/images/sun.png');
 var nightIcon = require('../../../assets/images/moon.png');
@@ -12,18 +13,26 @@ const options = [
   ];
   
   const DayNightToggle = () => {
-    const [selectedOption, setSelectedOption] = useState<string>('day');
-  
+    const { theme, toggleTheme } = React.useContext(ThemeContext);
+    const [selectedOption, setSelectedOption] = useState<string>(
+      theme === 'light' ? 'day' : 'night'
+    );
+
+    const handleThemeToggle = (value: string) => {
+      setSelectedOption(value);
+      toggleTheme();
+    };
+
     return (
       <SwitchSelector
         options={options}
-        initial={0}
-        textColor={globalStyle.colors.primary}
+        initial={selectedOption === 'day' ? 0 : 1}
+        textColor={theme === 'light' ? globalStyle.colors.primary : globalStyle.colors.primaryDark}
         selectedColor={globalStyle.colors.accent}
-        buttonColor={globalStyle.colors.primary}
-        borderColor={globalStyle.colors.primary}
+        buttonColor={theme === 'light' ? globalStyle.colors.primary : globalStyle.colors.primaryDark}
+        borderColor={theme === 'light' ? globalStyle.colors.primary : globalStyle.colors.primaryDark}
         hasPadding  
-        onPress={(value: any) => setSelectedOption(value)}
+        onPress={handleThemeToggle}
         height={30}
       />
     );

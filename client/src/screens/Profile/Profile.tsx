@@ -3,6 +3,7 @@ import { Avatar,Layout,Card,Text } from "@ui-kitten/components";
 import { View } from "react-native";
 import BottomNavigationComponent from "../../components/BottomNavigationMenu";
 import ThumbnailCard from "../../components/ThumbnailCard";
+import { ThemeContext } from "../../../theme-context";
 import globalStyle from '../../styles/globalStyle';
 import styles from "./Profile.styles";
 import DayNightToggle from "./DayNightToggle";
@@ -14,8 +15,10 @@ var orders = require('../../../assets/images/delivery.png')
 const Profile = ({ navigation }: any): React.ReactElement => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const [username, setUsername] = React.useState('abc123@email.com');
+    const { theme, toggleTheme } = React.useContext(ThemeContext);
+
     return (
-        <Layout style={styles.container}>
+        <Layout style={theme === "light" ? styles.container : styles.containerDark}>
             <Card style={styles.topCard}>
             <View style={styles.topRow}>
                 <View style={styles.toggleWrapper}>
@@ -33,21 +36,21 @@ const Profile = ({ navigation }: any): React.ReactElement => {
                 <ThumbnailCard 
                 imageSource={favorites}
                 description="saved"
-                cardStyle={styles.ThumbnailCard}
+                cardStyle={theme === "light" ? styles.ThumbnailCard : styles.ThumbnailCardDark}
                 textStyle={styles.cardText}
                 />
 
                 <ThumbnailCard 
                 imageSource={wallet}
                 description="wallet"
-                cardStyle={styles.ThumbnailCard}
+                cardStyle={theme === "light" ? styles.ThumbnailCard : styles.ThumbnailCardDark}
                 textStyle={styles.cardText}
                 />
 
                 <ThumbnailCard 
                 imageSource={orders}
                 description="orders"
-                cardStyle={styles.ThumbnailCard}
+                cardStyle={theme === "light" ? styles.ThumbnailCard : styles.ThumbnailCardDark}
                 textStyle={styles.cardText}
                 />
             </View>
