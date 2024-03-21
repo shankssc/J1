@@ -2,8 +2,7 @@ export type AmplifyDependentResourcesAttributes = {
   "api": {
     "j1eatsbackend": {
       "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string",
-      "GraphQLAPIKeyOutput": "string"
+      "GraphQLAPIIdOutput": "string"
     }
   },
   "auth": {

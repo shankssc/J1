@@ -13,8 +13,8 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 
 import { generateClient } from 'aws-amplify/api';
-import { createTodo } from './src/graphql/mutations';
-import { listTodos } from './src/graphql/queries';
+// import { createTodo } from './src/graphql/mutations';
+// import { listTodos } from './src/graphql/queries';
 
 import { withAuthenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';

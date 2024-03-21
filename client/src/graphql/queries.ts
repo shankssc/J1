@@ -38,3 +38,58 @@ export const listTodos = /* GraphQL */ `query ListTodos(
   }
 }
 ` as GeneratedQuery<APITypes.ListTodosQueryVariables, APITypes.ListTodosQuery>;
+export const getRestaurant = /* GraphQL */ `query GetRestaurant($id: ID!) {
+  getRestaurant(id: $id) {
+    id
+    name
+    description
+    menu {
+      name
+      price
+      description
+      calories
+      tags
+      picture
+      __typename
+    }
+    cusineType
+    address
+    owner
+    phone
+    picture
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetRestaurantQueryVariables,
+  APITypes.GetRestaurantQuery
+>;
+export const listRestaurants = /* GraphQL */ `query ListRestaurants(
+  $filter: ModelRestaurantFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listRestaurants(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      cusineType
+      address
+      owner
+      phone
+      picture
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListRestaurantsQueryVariables,
+  APITypes.ListRestaurantsQuery
+>;
