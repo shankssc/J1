@@ -2,6 +2,7 @@ import React from "react";
 import { Avatar,Layout,Card,Text } from "@ui-kitten/components";
 import { View } from "react-native";
 import BottomNavigationComponent from "../../components/BottomNavigationMenu";
+import { useBottomNavigation } from "../../components/BottomNavigationHook";
 import ThumbnailCard from "../../components/ThumbnailCard";
 import { ThemeContext } from "../../../theme-context";
 import globalStyle from '../../styles/globalStyle';
@@ -13,9 +14,11 @@ var wallet = require('../../../assets/images/wallet-1.png')
 var orders = require('../../../assets/images/delivery.png')
 
 const Profile = ({ navigation }: any): React.ReactElement => {
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [selectedIndex, setSelectedIndex] = React.useState(-1);
     const [username, setUsername] = React.useState('abc123@email.com');
     const { theme, toggleTheme } = React.useContext(ThemeContext);
+
+    useBottomNavigation(navigation, selectedIndex);
 
     return (
         <Layout style={theme === "light" ? styles.container : styles.containerDark}>

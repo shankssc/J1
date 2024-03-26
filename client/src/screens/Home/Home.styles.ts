@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyle.colors.background,
   },
+  containerDark: {
+    flex: 1,
+    backgroundColor: globalStyle.colors.darkBackground,
+  },
   bottomNavigationContainer: {
     position: 'absolute',
     bottom: 0,

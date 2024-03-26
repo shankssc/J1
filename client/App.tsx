@@ -157,7 +157,7 @@ const App = () => {
     <ThemeContext.Provider value={{theme, toggleTheme}}>
     <ApplicationProvider {...eva} theme={eva[theme]}>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Profile">
+          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Home">
             
                 <Stack.Screen name='Home' component={Home} />
                 <Stack.Screen name='SignUp' component={SignUp} />

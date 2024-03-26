@@ -7,6 +7,7 @@ import { ThemeContext } from '../../theme-context';
 
 const BottomNavigationComponent: React.FC<BottomNavigationProps> = ({ selectedIndex, onSelect }) => {
   const { theme, toggleTheme } = React.useContext(ThemeContext);
+  
     return (
       <BottomNavigation selectedIndex={selectedIndex} onSelect={onSelect}>
         <BottomNavigationTab title="Home" icon={() => <Icon library='Ionicons' name='home' size={20} color={theme === "light" ? globalStyle.colors.primary : globalStyle.colors.primaryDark}/>}/>

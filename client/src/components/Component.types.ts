@@ -1,6 +1,7 @@
 import { InputProps } from "@ui-kitten/components";
 import { ViewStyle, StyleProp, ImageSourcePropType, TextStyle, ImageStyle } from 'react-native';
 import { Ionicons, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { NavigationProp } from '@react-navigation/native';
 
 export const iconLibs = {
     Ionicons,
@@ -40,6 +41,7 @@ export interface ModalProps {
 export interface BottomNavigationProps {
     selectedIndex: number;
     onSelect: (index: number) => void;
+    navigation:NavigationProp<any>;
 };
 
 export interface ThumbnailCardProps {
