@@ -9,19 +9,22 @@ type Todo @model {
   description: String
 }
 
-type Restaurant @model @auth(rules: [{ allow: owner }]) {
+type Business @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   description: String
   menu: [MenuItem]
   cusineType: [String!]
   address: String!
-  owner: String
+  email: String
   phone: String
   picture: String
+  type: String
+  firstName: String
+  lastName: String
 }
 
-type MenuItem {
+type MenuItem @model @auth(rules: [{ allow: owner }]) {
   name: String!
   price: Float!
   description: String

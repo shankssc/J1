@@ -75,53 +75,53 @@ export type DeleteTodoInput = {
   id: string,
 };
 
-export type CreateRestaurantInput = {
+export type CreateBusinessInput = {
   id?: string | null,
   name: string,
   description?: string | null,
-  menu?: Array< MenuItemInput | null > | null,
   cusineType?: Array< string > | null,
   address: string,
-  owner?: string | null,
+  email?: string | null,
   phone?: string | null,
   picture?: string | null,
+  type?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
 };
 
-export type MenuItemInput = {
-  name: string,
-  price: number,
-  description?: string | null,
-  calories: string,
-  tags?: Array< string > | null,
-  picture?: string | null,
-};
-
-export type ModelRestaurantConditionInput = {
+export type ModelBusinessConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
   cusineType?: ModelStringInput | null,
   address?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
+  email?: ModelStringInput | null,
   phone?: ModelStringInput | null,
   picture?: ModelStringInput | null,
-  and?: Array< ModelRestaurantConditionInput | null > | null,
-  or?: Array< ModelRestaurantConditionInput | null > | null,
-  not?: ModelRestaurantConditionInput | null,
+  type?: ModelStringInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  and?: Array< ModelBusinessConditionInput | null > | null,
+  or?: Array< ModelBusinessConditionInput | null > | null,
+  not?: ModelBusinessConditionInput | null,
 };
 
-export type Restaurant = {
-  __typename: "Restaurant",
+export type Business = {
+  __typename: "Business",
   id: string,
   name: string,
   description?: string | null,
   menu?:  Array<MenuItem | null > | null,
   cusineType?: Array< string > | null,
   address: string,
-  owner?: string | null,
+  email?: string | null,
   phone?: string | null,
   picture?: string | null,
+  type?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type MenuItem = {
@@ -132,21 +132,75 @@ export type MenuItem = {
   calories: string,
   tags?: Array< string > | null,
   picture?: string | null,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
 };
 
-export type UpdateRestaurantInput = {
+export type UpdateBusinessInput = {
   id: string,
   name?: string | null,
   description?: string | null,
-  menu?: Array< MenuItemInput | null > | null,
   cusineType?: Array< string > | null,
   address?: string | null,
-  owner?: string | null,
+  email?: string | null,
   phone?: string | null,
   picture?: string | null,
+  type?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
 };
 
-export type DeleteRestaurantInput = {
+export type DeleteBusinessInput = {
+  id: string,
+};
+
+export type CreateMenuItemInput = {
+  name: string,
+  price: number,
+  description?: string | null,
+  calories: string,
+  tags?: Array< string > | null,
+  picture?: string | null,
+  id?: string | null,
+};
+
+export type ModelMenuItemConditionInput = {
+  name?: ModelStringInput | null,
+  price?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  calories?: ModelStringInput | null,
+  tags?: ModelStringInput | null,
+  picture?: ModelStringInput | null,
+  and?: Array< ModelMenuItemConditionInput | null > | null,
+  or?: Array< ModelMenuItemConditionInput | null > | null,
+  not?: ModelMenuItemConditionInput | null,
+};
+
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdateMenuItemInput = {
+  name?: string | null,
+  price?: number | null,
+  description?: string | null,
+  calories?: string | null,
+  tags?: Array< string > | null,
+  picture?: string | null,
+  id: string,
+};
+
+export type DeleteMenuItemInput = {
   id: string,
 };
 
@@ -181,23 +235,44 @@ export type ModelTodoConnection = {
   nextToken?: string | null,
 };
 
-export type ModelRestaurantFilterInput = {
+export type ModelBusinessFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
   cusineType?: ModelStringInput | null,
   address?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
+  email?: ModelStringInput | null,
   phone?: ModelStringInput | null,
   picture?: ModelStringInput | null,
-  and?: Array< ModelRestaurantFilterInput | null > | null,
-  or?: Array< ModelRestaurantFilterInput | null > | null,
-  not?: ModelRestaurantFilterInput | null,
+  type?: ModelStringInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  and?: Array< ModelBusinessFilterInput | null > | null,
+  or?: Array< ModelBusinessFilterInput | null > | null,
+  not?: ModelBusinessFilterInput | null,
 };
 
-export type ModelRestaurantConnection = {
-  __typename: "ModelRestaurantConnection",
-  items:  Array<Restaurant | null >,
+export type ModelBusinessConnection = {
+  __typename: "ModelBusinessConnection",
+  items:  Array<Business | null >,
+  nextToken?: string | null,
+};
+
+export type ModelMenuItemFilterInput = {
+  name?: ModelStringInput | null,
+  price?: ModelFloatInput | null,
+  description?: ModelStringInput | null,
+  calories?: ModelStringInput | null,
+  tags?: ModelStringInput | null,
+  picture?: ModelStringInput | null,
+  and?: Array< ModelMenuItemFilterInput | null > | null,
+  or?: Array< ModelMenuItemFilterInput | null > | null,
+  not?: ModelMenuItemFilterInput | null,
+};
+
+export type ModelMenuItemConnection = {
+  __typename: "ModelMenuItemConnection",
+  items:  Array<MenuItem | null >,
   nextToken?: string | null,
 };
 
@@ -239,16 +314,43 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionRestaurantFilterInput = {
+export type ModelSubscriptionBusinessFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
   cusineType?: ModelSubscriptionStringInput | null,
   address?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
   phone?: ModelSubscriptionStringInput | null,
   picture?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionRestaurantFilterInput | null > | null,
-  or?: Array< ModelSubscriptionRestaurantFilterInput | null > | null,
+  type?: ModelSubscriptionStringInput | null,
+  firstName?: ModelSubscriptionStringInput | null,
+  lastName?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBusinessFilterInput | null > | null,
+  or?: Array< ModelSubscriptionBusinessFilterInput | null > | null,
+};
+
+export type ModelSubscriptionMenuItemFilterInput = {
+  name?: ModelSubscriptionStringInput | null,
+  price?: ModelSubscriptionFloatInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  calories?: ModelSubscriptionStringInput | null,
+  tags?: ModelSubscriptionStringInput | null,
+  picture?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMenuItemFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMenuItemFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
 };
 
 export type CreateTodoMutationVariables = {
@@ -299,14 +401,14 @@ export type DeleteTodoMutation = {
   } | null,
 };
 
-export type CreateRestaurantMutationVariables = {
-  input: CreateRestaurantInput,
-  condition?: ModelRestaurantConditionInput | null,
+export type CreateBusinessMutationVariables = {
+  input: CreateBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
 };
 
-export type CreateRestaurantMutation = {
-  createRestaurant?:  {
-    __typename: "Restaurant",
+export type CreateBusinessMutation = {
+  createBusiness?:  {
+    __typename: "Business",
     id: string,
     name: string,
     description?: string | null,
@@ -318,25 +420,33 @@ export type CreateRestaurantMutation = {
       calories: string,
       tags?: Array< string > | null,
       picture?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     cusineType?: Array< string > | null,
     address: string,
-    owner?: string | null,
+    email?: string | null,
     phone?: string | null,
     picture?: string | null,
+    type?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type UpdateRestaurantMutationVariables = {
-  input: UpdateRestaurantInput,
-  condition?: ModelRestaurantConditionInput | null,
+export type UpdateBusinessMutationVariables = {
+  input: UpdateBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
 };
 
-export type UpdateRestaurantMutation = {
-  updateRestaurant?:  {
-    __typename: "Restaurant",
+export type UpdateBusinessMutation = {
+  updateBusiness?:  {
+    __typename: "Business",
     id: string,
     name: string,
     description?: string | null,
@@ -348,25 +458,33 @@ export type UpdateRestaurantMutation = {
       calories: string,
       tags?: Array< string > | null,
       picture?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     cusineType?: Array< string > | null,
     address: string,
-    owner?: string | null,
+    email?: string | null,
     phone?: string | null,
     picture?: string | null,
+    type?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type DeleteRestaurantMutationVariables = {
-  input: DeleteRestaurantInput,
-  condition?: ModelRestaurantConditionInput | null,
+export type DeleteBusinessMutationVariables = {
+  input: DeleteBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
 };
 
-export type DeleteRestaurantMutation = {
-  deleteRestaurant?:  {
-    __typename: "Restaurant",
+export type DeleteBusinessMutation = {
+  deleteBusiness?:  {
+    __typename: "Business",
     id: string,
     name: string,
     description?: string | null,
@@ -378,14 +496,85 @@ export type DeleteRestaurantMutation = {
       calories: string,
       tags?: Array< string > | null,
       picture?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     cusineType?: Array< string > | null,
     address: string,
-    owner?: string | null,
+    email?: string | null,
     phone?: string | null,
     picture?: string | null,
+    type?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateMenuItemMutationVariables = {
+  input: CreateMenuItemInput,
+  condition?: ModelMenuItemConditionInput | null,
+};
+
+export type CreateMenuItemMutation = {
+  createMenuItem?:  {
+    __typename: "MenuItem",
+    name: string,
+    price: number,
+    description?: string | null,
+    calories: string,
+    tags?: Array< string > | null,
+    picture?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateMenuItemMutationVariables = {
+  input: UpdateMenuItemInput,
+  condition?: ModelMenuItemConditionInput | null,
+};
+
+export type UpdateMenuItemMutation = {
+  updateMenuItem?:  {
+    __typename: "MenuItem",
+    name: string,
+    price: number,
+    description?: string | null,
+    calories: string,
+    tags?: Array< string > | null,
+    picture?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteMenuItemMutationVariables = {
+  input: DeleteMenuItemInput,
+  condition?: ModelMenuItemConditionInput | null,
+};
+
+export type DeleteMenuItemMutation = {
+  deleteMenuItem?:  {
+    __typename: "MenuItem",
+    name: string,
+    price: number,
+    description?: string | null,
+    calories: string,
+    tags?: Array< string > | null,
+    picture?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -425,13 +614,13 @@ export type ListTodosQuery = {
   } | null,
 };
 
-export type GetRestaurantQueryVariables = {
+export type GetBusinessQueryVariables = {
   id: string,
 };
 
-export type GetRestaurantQuery = {
-  getRestaurant?:  {
-    __typename: "Restaurant",
+export type GetBusinessQuery = {
+  getBusiness?:  {
+    __typename: "Business",
     id: string,
     name: string,
     description?: string | null,
@@ -443,38 +632,96 @@ export type GetRestaurantQuery = {
       calories: string,
       tags?: Array< string > | null,
       picture?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     cusineType?: Array< string > | null,
     address: string,
-    owner?: string | null,
+    email?: string | null,
     phone?: string | null,
     picture?: string | null,
+    type?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type ListRestaurantsQueryVariables = {
-  filter?: ModelRestaurantFilterInput | null,
+export type ListBusinessesQueryVariables = {
+  filter?: ModelBusinessFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListRestaurantsQuery = {
-  listRestaurants?:  {
-    __typename: "ModelRestaurantConnection",
+export type ListBusinessesQuery = {
+  listBusinesses?:  {
+    __typename: "ModelBusinessConnection",
     items:  Array< {
-      __typename: "Restaurant",
+      __typename: "Business",
       id: string,
       name: string,
       description?: string | null,
       cusineType?: Array< string > | null,
       address: string,
-      owner?: string | null,
+      email?: string | null,
       phone?: string | null,
       picture?: string | null,
+      type?: string | null,
+      firstName?: string | null,
+      lastName?: string | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetMenuItemQueryVariables = {
+  id: string,
+};
+
+export type GetMenuItemQuery = {
+  getMenuItem?:  {
+    __typename: "MenuItem",
+    name: string,
+    price: number,
+    description?: string | null,
+    calories: string,
+    tags?: Array< string > | null,
+    picture?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListMenuItemsQueryVariables = {
+  filter?: ModelMenuItemFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMenuItemsQuery = {
+  listMenuItems?:  {
+    __typename: "ModelMenuItemConnection",
+    items:  Array< {
+      __typename: "MenuItem",
+      name: string,
+      price: number,
+      description?: string | null,
+      calories: string,
+      tags?: Array< string > | null,
+      picture?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -525,14 +772,14 @@ export type OnDeleteTodoSubscription = {
   } | null,
 };
 
-export type OnCreateRestaurantSubscriptionVariables = {
-  filter?: ModelSubscriptionRestaurantFilterInput | null,
+export type OnCreateBusinessSubscriptionVariables = {
+  filter?: ModelSubscriptionBusinessFilterInput | null,
   owner?: string | null,
 };
 
-export type OnCreateRestaurantSubscription = {
-  onCreateRestaurant?:  {
-    __typename: "Restaurant",
+export type OnCreateBusinessSubscription = {
+  onCreateBusiness?:  {
+    __typename: "Business",
     id: string,
     name: string,
     description?: string | null,
@@ -544,25 +791,33 @@ export type OnCreateRestaurantSubscription = {
       calories: string,
       tags?: Array< string > | null,
       picture?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     cusineType?: Array< string > | null,
     address: string,
-    owner?: string | null,
+    email?: string | null,
     phone?: string | null,
     picture?: string | null,
+    type?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnUpdateRestaurantSubscriptionVariables = {
-  filter?: ModelSubscriptionRestaurantFilterInput | null,
+export type OnUpdateBusinessSubscriptionVariables = {
+  filter?: ModelSubscriptionBusinessFilterInput | null,
   owner?: string | null,
 };
 
-export type OnUpdateRestaurantSubscription = {
-  onUpdateRestaurant?:  {
-    __typename: "Restaurant",
+export type OnUpdateBusinessSubscription = {
+  onUpdateBusiness?:  {
+    __typename: "Business",
     id: string,
     name: string,
     description?: string | null,
@@ -574,25 +829,33 @@ export type OnUpdateRestaurantSubscription = {
       calories: string,
       tags?: Array< string > | null,
       picture?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     cusineType?: Array< string > | null,
     address: string,
-    owner?: string | null,
+    email?: string | null,
     phone?: string | null,
     picture?: string | null,
+    type?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
-export type OnDeleteRestaurantSubscriptionVariables = {
-  filter?: ModelSubscriptionRestaurantFilterInput | null,
+export type OnDeleteBusinessSubscriptionVariables = {
+  filter?: ModelSubscriptionBusinessFilterInput | null,
   owner?: string | null,
 };
 
-export type OnDeleteRestaurantSubscription = {
-  onDeleteRestaurant?:  {
-    __typename: "Restaurant",
+export type OnDeleteBusinessSubscription = {
+  onDeleteBusiness?:  {
+    __typename: "Business",
     id: string,
     name: string,
     description?: string | null,
@@ -604,13 +867,84 @@ export type OnDeleteRestaurantSubscription = {
       calories: string,
       tags?: Array< string > | null,
       picture?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null > | null,
     cusineType?: Array< string > | null,
     address: string,
-    owner?: string | null,
+    email?: string | null,
     phone?: string | null,
     picture?: string | null,
+    type?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateMenuItemSubscriptionVariables = {
+  filter?: ModelSubscriptionMenuItemFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateMenuItemSubscription = {
+  onCreateMenuItem?:  {
+    __typename: "MenuItem",
+    name: string,
+    price: number,
+    description?: string | null,
+    calories: string,
+    tags?: Array< string > | null,
+    picture?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateMenuItemSubscriptionVariables = {
+  filter?: ModelSubscriptionMenuItemFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateMenuItemSubscription = {
+  onUpdateMenuItem?:  {
+    __typename: "MenuItem",
+    name: string,
+    price: number,
+    description?: string | null,
+    calories: string,
+    tags?: Array< string > | null,
+    picture?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteMenuItemSubscriptionVariables = {
+  filter?: ModelSubscriptionMenuItemFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteMenuItemSubscription = {
+  onDeleteMenuItem?:  {
+    __typename: "MenuItem",
+    name: string,
+    price: number,
+    description?: string | null,
+    calories: string,
+    tags?: Array< string > | null,
+    picture?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
   } | null,
 };

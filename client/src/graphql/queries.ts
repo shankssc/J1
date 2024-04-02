@@ -38,8 +38,8 @@ export const listTodos = /* GraphQL */ `query ListTodos(
   }
 }
 ` as GeneratedQuery<APITypes.ListTodosQueryVariables, APITypes.ListTodosQuery>;
-export const getRestaurant = /* GraphQL */ `query GetRestaurant($id: ID!) {
-  getRestaurant(id: $id) {
+export const getBusiness = /* GraphQL */ `query GetBusiness($id: ID!) {
+  getBusiness(id: $id) {
     id
     name
     description
@@ -50,39 +50,51 @@ export const getRestaurant = /* GraphQL */ `query GetRestaurant($id: ID!) {
       calories
       tags
       picture
+      id
+      createdAt
+      updatedAt
+      owner
       __typename
     }
     cusineType
     address
-    owner
+    email
     phone
     picture
+    type
+    firstName
+    lastName
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetRestaurantQueryVariables,
-  APITypes.GetRestaurantQuery
+  APITypes.GetBusinessQueryVariables,
+  APITypes.GetBusinessQuery
 >;
-export const listRestaurants = /* GraphQL */ `query ListRestaurants(
-  $filter: ModelRestaurantFilterInput
+export const listBusinesses = /* GraphQL */ `query ListBusinesses(
+  $filter: ModelBusinessFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listRestaurants(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listBusinesses(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
       description
       cusineType
       address
-      owner
+      email
       phone
       picture
+      type
+      firstName
+      lastName
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken
@@ -90,6 +102,52 @@ export const listRestaurants = /* GraphQL */ `query ListRestaurants(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListRestaurantsQueryVariables,
-  APITypes.ListRestaurantsQuery
+  APITypes.ListBusinessesQueryVariables,
+  APITypes.ListBusinessesQuery
+>;
+export const getMenuItem = /* GraphQL */ `query GetMenuItem($id: ID!) {
+  getMenuItem(id: $id) {
+    name
+    price
+    description
+    calories
+    tags
+    picture
+    id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMenuItemQueryVariables,
+  APITypes.GetMenuItemQuery
+>;
+export const listMenuItems = /* GraphQL */ `query ListMenuItems(
+  $filter: ModelMenuItemFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMenuItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      name
+      price
+      description
+      calories
+      tags
+      picture
+      id
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMenuItemsQueryVariables,
+  APITypes.ListMenuItemsQuery
 >;

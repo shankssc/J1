@@ -50,11 +50,11 @@ export const onDeleteTodo = /* GraphQL */ `subscription OnDeleteTodo($filter: Mo
   APITypes.OnDeleteTodoSubscriptionVariables,
   APITypes.OnDeleteTodoSubscription
 >;
-export const onCreateRestaurant = /* GraphQL */ `subscription OnCreateRestaurant(
-  $filter: ModelSubscriptionRestaurantFilterInput
+export const onCreateBusiness = /* GraphQL */ `subscription OnCreateBusiness(
+  $filter: ModelSubscriptionBusinessFilterInput
   $owner: String
 ) {
-  onCreateRestaurant(filter: $filter, owner: $owner) {
+  onCreateBusiness(filter: $filter, owner: $owner) {
     id
     name
     description
@@ -65,27 +65,35 @@ export const onCreateRestaurant = /* GraphQL */ `subscription OnCreateRestaurant
       calories
       tags
       picture
+      id
+      createdAt
+      updatedAt
+      owner
       __typename
     }
     cusineType
     address
-    owner
+    email
     phone
     picture
+    type
+    firstName
+    lastName
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateRestaurantSubscriptionVariables,
-  APITypes.OnCreateRestaurantSubscription
+  APITypes.OnCreateBusinessSubscriptionVariables,
+  APITypes.OnCreateBusinessSubscription
 >;
-export const onUpdateRestaurant = /* GraphQL */ `subscription OnUpdateRestaurant(
-  $filter: ModelSubscriptionRestaurantFilterInput
+export const onUpdateBusiness = /* GraphQL */ `subscription OnUpdateBusiness(
+  $filter: ModelSubscriptionBusinessFilterInput
   $owner: String
 ) {
-  onUpdateRestaurant(filter: $filter, owner: $owner) {
+  onUpdateBusiness(filter: $filter, owner: $owner) {
     id
     name
     description
@@ -96,27 +104,35 @@ export const onUpdateRestaurant = /* GraphQL */ `subscription OnUpdateRestaurant
       calories
       tags
       picture
+      id
+      createdAt
+      updatedAt
+      owner
       __typename
     }
     cusineType
     address
-    owner
+    email
     phone
     picture
+    type
+    firstName
+    lastName
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateRestaurantSubscriptionVariables,
-  APITypes.OnUpdateRestaurantSubscription
+  APITypes.OnUpdateBusinessSubscriptionVariables,
+  APITypes.OnUpdateBusinessSubscription
 >;
-export const onDeleteRestaurant = /* GraphQL */ `subscription OnDeleteRestaurant(
-  $filter: ModelSubscriptionRestaurantFilterInput
+export const onDeleteBusiness = /* GraphQL */ `subscription OnDeleteBusiness(
+  $filter: ModelSubscriptionBusinessFilterInput
   $owner: String
 ) {
-  onDeleteRestaurant(filter: $filter, owner: $owner) {
+  onDeleteBusiness(filter: $filter, owner: $owner) {
     id
     name
     description
@@ -127,19 +143,93 @@ export const onDeleteRestaurant = /* GraphQL */ `subscription OnDeleteRestaurant
       calories
       tags
       picture
+      id
+      createdAt
+      updatedAt
+      owner
       __typename
     }
     cusineType
     address
-    owner
+    email
     phone
     picture
+    type
+    firstName
+    lastName
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteRestaurantSubscriptionVariables,
-  APITypes.OnDeleteRestaurantSubscription
+  APITypes.OnDeleteBusinessSubscriptionVariables,
+  APITypes.OnDeleteBusinessSubscription
+>;
+export const onCreateMenuItem = /* GraphQL */ `subscription OnCreateMenuItem(
+  $filter: ModelSubscriptionMenuItemFilterInput
+  $owner: String
+) {
+  onCreateMenuItem(filter: $filter, owner: $owner) {
+    name
+    price
+    description
+    calories
+    tags
+    picture
+    id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMenuItemSubscriptionVariables,
+  APITypes.OnCreateMenuItemSubscription
+>;
+export const onUpdateMenuItem = /* GraphQL */ `subscription OnUpdateMenuItem(
+  $filter: ModelSubscriptionMenuItemFilterInput
+  $owner: String
+) {
+  onUpdateMenuItem(filter: $filter, owner: $owner) {
+    name
+    price
+    description
+    calories
+    tags
+    picture
+    id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMenuItemSubscriptionVariables,
+  APITypes.OnUpdateMenuItemSubscription
+>;
+export const onDeleteMenuItem = /* GraphQL */ `subscription OnDeleteMenuItem(
+  $filter: ModelSubscriptionMenuItemFilterInput
+  $owner: String
+) {
+  onDeleteMenuItem(filter: $filter, owner: $owner) {
+    name
+    price
+    description
+    calories
+    tags
+    picture
+    id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMenuItemSubscriptionVariables,
+  APITypes.OnDeleteMenuItemSubscription
 >;

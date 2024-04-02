@@ -59,11 +59,11 @@ export const deleteTodo = /* GraphQL */ `mutation DeleteTodo(
   APITypes.DeleteTodoMutationVariables,
   APITypes.DeleteTodoMutation
 >;
-export const createRestaurant = /* GraphQL */ `mutation CreateRestaurant(
-  $input: CreateRestaurantInput!
-  $condition: ModelRestaurantConditionInput
+export const createBusiness = /* GraphQL */ `mutation CreateBusiness(
+  $input: CreateBusinessInput!
+  $condition: ModelBusinessConditionInput
 ) {
-  createRestaurant(input: $input, condition: $condition) {
+  createBusiness(input: $input, condition: $condition) {
     id
     name
     description
@@ -74,27 +74,35 @@ export const createRestaurant = /* GraphQL */ `mutation CreateRestaurant(
       calories
       tags
       picture
+      id
+      createdAt
+      updatedAt
+      owner
       __typename
     }
     cusineType
     address
-    owner
+    email
     phone
     picture
+    type
+    firstName
+    lastName
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateRestaurantMutationVariables,
-  APITypes.CreateRestaurantMutation
+  APITypes.CreateBusinessMutationVariables,
+  APITypes.CreateBusinessMutation
 >;
-export const updateRestaurant = /* GraphQL */ `mutation UpdateRestaurant(
-  $input: UpdateRestaurantInput!
-  $condition: ModelRestaurantConditionInput
+export const updateBusiness = /* GraphQL */ `mutation UpdateBusiness(
+  $input: UpdateBusinessInput!
+  $condition: ModelBusinessConditionInput
 ) {
-  updateRestaurant(input: $input, condition: $condition) {
+  updateBusiness(input: $input, condition: $condition) {
     id
     name
     description
@@ -105,27 +113,35 @@ export const updateRestaurant = /* GraphQL */ `mutation UpdateRestaurant(
       calories
       tags
       picture
+      id
+      createdAt
+      updatedAt
+      owner
       __typename
     }
     cusineType
     address
-    owner
+    email
     phone
     picture
+    type
+    firstName
+    lastName
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateRestaurantMutationVariables,
-  APITypes.UpdateRestaurantMutation
+  APITypes.UpdateBusinessMutationVariables,
+  APITypes.UpdateBusinessMutation
 >;
-export const deleteRestaurant = /* GraphQL */ `mutation DeleteRestaurant(
-  $input: DeleteRestaurantInput!
-  $condition: ModelRestaurantConditionInput
+export const deleteBusiness = /* GraphQL */ `mutation DeleteBusiness(
+  $input: DeleteBusinessInput!
+  $condition: ModelBusinessConditionInput
 ) {
-  deleteRestaurant(input: $input, condition: $condition) {
+  deleteBusiness(input: $input, condition: $condition) {
     id
     name
     description
@@ -136,19 +152,93 @@ export const deleteRestaurant = /* GraphQL */ `mutation DeleteRestaurant(
       calories
       tags
       picture
+      id
+      createdAt
+      updatedAt
+      owner
       __typename
     }
     cusineType
     address
-    owner
+    email
     phone
     picture
+    type
+    firstName
+    lastName
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteRestaurantMutationVariables,
-  APITypes.DeleteRestaurantMutation
+  APITypes.DeleteBusinessMutationVariables,
+  APITypes.DeleteBusinessMutation
+>;
+export const createMenuItem = /* GraphQL */ `mutation CreateMenuItem(
+  $input: CreateMenuItemInput!
+  $condition: ModelMenuItemConditionInput
+) {
+  createMenuItem(input: $input, condition: $condition) {
+    name
+    price
+    description
+    calories
+    tags
+    picture
+    id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMenuItemMutationVariables,
+  APITypes.CreateMenuItemMutation
+>;
+export const updateMenuItem = /* GraphQL */ `mutation UpdateMenuItem(
+  $input: UpdateMenuItemInput!
+  $condition: ModelMenuItemConditionInput
+) {
+  updateMenuItem(input: $input, condition: $condition) {
+    name
+    price
+    description
+    calories
+    tags
+    picture
+    id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMenuItemMutationVariables,
+  APITypes.UpdateMenuItemMutation
+>;
+export const deleteMenuItem = /* GraphQL */ `mutation DeleteMenuItem(
+  $input: DeleteMenuItemInput!
+  $condition: ModelMenuItemConditionInput
+) {
+  deleteMenuItem(input: $input, condition: $condition) {
+    name
+    price
+    description
+    calories
+    tags
+    picture
+    id
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMenuItemMutationVariables,
+  APITypes.DeleteMenuItemMutation
 >;
