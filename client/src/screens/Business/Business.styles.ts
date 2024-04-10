@@ -10,6 +10,7 @@ const Styles = StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         overflow: "hidden",
+        marginTop: 20,
         backgroundColor: globalStyle.colors.primary,
     },
 
@@ -74,9 +75,9 @@ const Styles = StyleSheet.create({
     },
 
     text: {
-        alignSelf: 'center',
+        textAlign: 'left',
         color: globalStyle.colors.accent,
-        
+        marginBottom: 5,
     },
 
     toggle: {
@@ -88,6 +89,13 @@ const Styles = StyleSheet.create({
     buttonText: {
         color: globalStyle.colors.accent,
     },
+
+    image: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 })
 
 

@@ -29,3 +29,13 @@ export type GeoLocation = {
       latitude: null;
       longitude: null;
 }
+
+export type BusinessParameters = {
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  type: string;
+  firstName: string;
+  lastName: string
+}

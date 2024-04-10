@@ -32,6 +32,7 @@ import SignUp from './src/screens/Auth/SignUp';
 import SignIn from './src/screens/Auth/SignIn';
 import Verification from './src/screens/Auth/Verification';
 import Profile from './src/screens/Profile/Profile';
+import Business from './src/screens/Business/Business';
 
 Amplify.configure(amplifyconfig);
 
@@ -157,13 +158,14 @@ const App = () => {
     <ThemeContext.Provider value={{theme, toggleTheme}}>
     <ApplicationProvider {...eva} theme={eva[theme]}>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Home">
+          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Business">
             
                 <Stack.Screen name='Home' component={Home} />
                 <Stack.Screen name='SignUp' component={SignUp} />
                 <Stack.Screen name='SignIn' component={SignIn} />
                 <Stack.Screen name='Verify' component={Verification} />
                 <Stack.Screen name='Profile' component={Profile}/>
+                <Stack.Screen name='Business' component={Business}/>
 
           </Stack.Navigator>
         </NavigationContainer>

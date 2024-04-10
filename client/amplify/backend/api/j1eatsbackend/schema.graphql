@@ -12,7 +12,6 @@ type Todo @model {
 type Business @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
-  description: String
   menu: [MenuItem]
   cusineType: [String!]
   address: String!
@@ -31,4 +30,5 @@ type MenuItem @model @auth(rules: [{ allow: owner }]) {
   calories: String!
   tags: [String!]
   picture: String
+  type: String
 }
