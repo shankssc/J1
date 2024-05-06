@@ -1,6 +1,6 @@
 import { InputProps } from "@ui-kitten/components";
 import { ViewStyle, StyleProp, ImageSourcePropType, TextStyle, ImageStyle } from 'react-native';
-import { Ionicons, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, MaterialCommunityIcons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { NavigationProp } from '@react-navigation/native';
 
 export const iconLibs = {
@@ -8,6 +8,7 @@ export const iconLibs = {
     FontAwesome,
     MaterialCommunityIcons,
     MaterialIcons,
+    AntDesign
 };
 
 export interface IconProps<T extends keyof typeof iconLibs> {

@@ -1,9 +1,16 @@
 import React from "react";
-import { Avatar,Layout,Card,Text } from "@ui-kitten/components";
+import { Avatar,
+         Layout,
+         Card,
+         Text,
+         IndexPath,
+         Menu,
+         MenuItem } from "@ui-kitten/components";
 import { View } from "react-native";
 import BottomNavigationComponent from "../../components/BottomNavigationMenu";
 import { useBottomNavigation } from "../../components/BottomNavigationHook";
 import ThumbnailCard from "../../components/ThumbnailCard";
+import Icon from "../../components/Icons";
 import { ThemeContext } from "../../../theme-context";
 import globalStyle from '../../styles/globalStyle';
 import styles from "./Profile.styles";
@@ -17,6 +24,7 @@ const Profile = ({ navigation }: any): React.ReactElement => {
     const [selectedIndex, setSelectedIndex] = React.useState(-1);
     const [username, setUsername] = React.useState('abc123@email.com');
     const { theme, toggleTheme } = React.useContext(ThemeContext);
+    const [selectedMenuIndex, setSelectedMenuIndex] = React.useState(new IndexPath(-1));
 
     useBottomNavigation(navigation, selectedIndex);
 
@@ -58,7 +66,31 @@ const Profile = ({ navigation }: any): React.ReactElement => {
                 />
             </View>
             </Card>
-
+            <Card>
+                <Menu
+                selectedIndex={selectedMenuIndex}
+                onSelect={index => setSelectedMenuIndex(index)}
+                >
+                    <MenuItem 
+                        title='Promotions'
+                        accessoryLeft={() => <Icon library='AntDesign' name="tags" size={20} color={theme === "light" ? globalStyle.colors.primary : globalStyle.colors.primaryDark}/>}/>
+                    <MenuItem 
+                        title='Help'
+                        accessoryLeft={() => <Icon library='Ionicons' name="help-buoy" size={20} color={theme === "light" ? globalStyle.colors.primary : globalStyle.colors.primaryDark}/>}/>
+                    <MenuItem 
+                        title='Setup a business profile' 
+                        accessoryLeft={() => <Icon library='FontAwesome' name="suitcase" size={20} color={theme === "light" ? globalStyle.colors.primary : globalStyle.colors.primaryDark}/>}/>
+                    <MenuItem 
+                        title='Privacy' 
+                        accessoryLeft={() => <Icon library='MaterialIcons' name="privacy-tip" size={20} color={theme === "light" ? globalStyle.colors.primary : globalStyle.colors.primaryDark}/>}/>
+                    <MenuItem 
+                        title='Manage account' 
+                        accessoryLeft={() => <Icon library='MaterialCommunityIcons' name="account-cog" size={20} color={theme === "light" ? globalStyle.colors.primary : globalStyle.colors.primaryDark}/>}/>
+                    <MenuItem 
+                        title='About' 
+                        accessoryLeft={() => <Icon library='AntDesign' name="infocirlce" size={20} color={theme === "light" ? globalStyle.colors.primary : globalStyle.colors.primaryDark}/>}/>
+                </Menu>
+            </Card>
         <Layout style={styles.bottomNavigationContainer}>
         <BottomNavigationComponent selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
         </Layout>
