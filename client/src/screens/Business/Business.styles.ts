@@ -74,6 +74,13 @@ const Styles = StyleSheet.create({
         borderColor: globalStyle.colors.accent
     },
 
+    uploadButton: {
+        marginTop: 10,
+        marginBottom: 10,
+        backgroundColor: globalStyle.colors.inputSecondary,
+        borderColor: globalStyle.colors.accent
+    },
+
     text: {
         textAlign: 'left',
         color: globalStyle.colors.accent,

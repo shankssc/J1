@@ -1,0 +1,10 @@
+{
+  "resourceName": "appDataStore",
+  "tableName": "placeholderTable",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

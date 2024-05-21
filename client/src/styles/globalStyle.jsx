@@ -14,6 +14,7 @@ const globalStyle = {
     text3: '#312f2f',      // Text color (Jet)
     misc: '#84dccf',       // Tiffany blue
     input: '#f5969b',
+    inputSecondary: '#ffc9cc',
     primaryDark: '#29c3c3',
     // Customize other colors as needed
   },

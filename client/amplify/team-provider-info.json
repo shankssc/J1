@@ -17,6 +17,9 @@
       },
       "api": {
         "j1eatsbackend": {}
+      },
+      "storage": {
+        "appDataStore": {}
       }
     }
   }

@@ -4,7 +4,8 @@ import { TouchableWithoutFeedback,
     KeyboardAvoidingView,
     TouchableOpacity, 
     Platform,
-    ImageBackground } from 'react-native';
+    ImageBackground,
+    Image } from 'react-native';
 import {
     Select,
     SelectItem,
@@ -27,6 +28,8 @@ import CustomModal from '../../components/Modal';
 import globalStyle from '../../styles/globalStyle';
 import { BusinessParameters } from '../Screens.types';
 
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+
 const Business = ({ navigation }:any):React.ReactElement => {
 
     const [isSuccessModalVisible, setIsSuccessModalVisible] = React.useState<boolean>(false);
@@ -39,9 +42,28 @@ const Business = ({ navigation }:any):React.ReactElement => {
         return { selectedIndex, onSelect: setSelectedIndex };
     };
 
+    const [imageUri, setImageUri] = React.useState(null);
+
     const selectedRoleState = useSelectState();
 
     const { register, handleSubmit, control, formState: { errors } } = useForm<BusinessParameters>();
+
+    const selectFile = () => {
+        launchImageLibrary({mediaType: 'photo'}, (response) => {
+            if (response.didCancel) {
+                console.log("User cancelled image selection");
+            }
+            else if (response.errorMessage) {
+                console.log("ImagePicker Error: ", response.errorMessage);
+            }
+            else {
+                //@ts-ignore
+                const source = { uri: response.assets[0].uri };
+                //@ts-ignore
+                setImageUri(source.uri);
+            }
+        });
+    }
 
     return (<KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -129,6 +151,12 @@ const Business = ({ navigation }:any):React.ReactElement => {
                         name="lastName"
                 />
 
+                <Button style={Styles.uploadButton} 
+                        onPress={selectFile}
+                        accessoryLeft={() => <Icon library='MaterialIcons' name="attachment" size={20} color={globalStyle.primary} />}>
+                        Select File
+                </Button>
+                
                 <Controller
                         control={control}
                         render={({ field }) => (
