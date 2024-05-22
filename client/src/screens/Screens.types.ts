@@ -32,9 +32,11 @@ export type GeoLocation = {
 
 export type BusinessParameters = {
   name: string;
+  cusineType: string[];
   address: string;
   email: string;
   phone: string;
+  picture: string;
   type: string;
   firstName: string;
   lastName: string

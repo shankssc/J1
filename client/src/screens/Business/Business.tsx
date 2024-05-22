@@ -22,11 +22,13 @@ import {
 import { useForm, Controller } from "react-hook-form";
 
 import Styles from './Business.styles';
+import { createNewBusiness } from './Business.API';
 import MyInput from '../../components/Input';
 import Icon from '../../components/Icons';
 import CustomModal from '../../components/Modal';
 import globalStyle from '../../styles/globalStyle';
 import { BusinessParameters } from '../Screens.types';
+import { CreateBusinessInput } from '../../API';
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
@@ -63,6 +65,21 @@ const Business = ({ navigation }:any):React.ReactElement => {
                 setImageUri(source.uri);
             }
         });
+    }
+
+    const onSubmit = async (data:BusinessParameters) => {
+        const businessDetails: CreateBusinessInput = {
+            ...data,
+            picture: imageUri,
+            email: ''
+        }
+        try {
+            const newBusiness = await createNewBusiness(businessDetails);
+            console.log('Business created:', newBusiness);
+            toggleSuccessModal();
+        } catch (error:any) {
+            console.error('Error creating business:', error);
+        }
     }
 
     return (<KeyboardAvoidingView
