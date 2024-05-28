@@ -52,7 +52,7 @@ const SignIn = ({ navigation }:any):React.ReactElement => {
 
             dispatch(auth(payload));
 
-            navigation.navigate("Home");
+            navigation.navigate("Business");
 
         } catch (error) {
             console.log('Error authenticating:', error);

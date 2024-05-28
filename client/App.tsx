@@ -23,7 +23,8 @@ import 'react-native-url-polyfill/auto';
 import 'react-native-get-random-values';
 import { nanoid } from 'nanoid';
 import { Provider, useSelector } from 'react-redux';
-import store from './src/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store, persistor} from './src/store';
 import { ThemeContext } from './theme-context';
 import { selectUser } from './src/reducers/user';
 
@@ -158,7 +159,7 @@ const App = () => {
     <ThemeContext.Provider value={{theme, toggleTheme}}>
     <ApplicationProvider {...eva} theme={eva[theme]}>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignIn'}*/"Business">
+          <Stack.Navigator initialRouteName={user.email ? 'Home' : 'SignIn'}/*"Business"*/>
             
                 <Stack.Screen name='Home' component={Home} />
                 <Stack.Screen name='SignUp' component={SignUp} />
@@ -178,7 +179,9 @@ const App = () => {
 const AppWrapper = () => {
   return (
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <App />
+      </PersistGate>
     </Provider>
   );
 };

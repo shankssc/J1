@@ -31,6 +31,8 @@ import { BusinessParameters } from '../Screens.types';
 import { CreateBusinessInput } from '../../API';
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { Amplify } from 'aws-amplify';
+import { getCurrentUser } from 'aws-amplify/auth';
 
 const Business = ({ navigation }:any):React.ReactElement => {
 
@@ -49,6 +51,20 @@ const Business = ({ navigation }:any):React.ReactElement => {
     const selectedRoleState = useSelectState();
 
     const { register, handleSubmit, control, formState: { errors } } = useForm<BusinessParameters>();
+
+    async function currentAuthenticatedUser() {
+        try {
+            const { username, userId, signInDetails } = await getCurrentUser();
+          // console.log(`The username: ${username}`);
+          // console.log(`The userId: ${userId}`);
+          // console.log(`The signInDetails: ${signInDetails}`);
+          return username
+        } catch (err) {
+          console.log(err);
+        }
+    }
+
+    const currentUser = currentAuthenticatedUser()
 
     const selectFile = () => {
         launchImageLibrary({mediaType: 'photo'}, (response) => {
@@ -71,7 +87,7 @@ const Business = ({ navigation }:any):React.ReactElement => {
         const businessDetails: CreateBusinessInput = {
             ...data,
             picture: imageUri,
-            email: ''
+            email: await currentUser,
         }
         try {
             const newBusiness = await createNewBusiness(businessDetails);

@@ -2,8 +2,8 @@ import {
         createBusiness,
         updateBusiness,
         deleteBusiness,
-         } from "client/src/graphql/mutations";
-import { listBusinesses } from "client/src/graphql/queries";
+         } from "../../graphql/mutations";
+import { listBusinesses } from "../../graphql/queries";
 import { CreateBusinessInput } from "../../API";
 import { generateClient } from 'aws-amplify/api';
 
