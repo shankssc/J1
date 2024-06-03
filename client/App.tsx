@@ -16,7 +16,7 @@ import { generateClient } from 'aws-amplify/api';
 // import { createTodo } from './src/graphql/mutations';
 // import { listTodos } from './src/graphql/queries';
 
-import { withAuthenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+import { Authenticator, withAuthenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from './src/amplifyconfiguration.json';
 import 'react-native-url-polyfill/auto';

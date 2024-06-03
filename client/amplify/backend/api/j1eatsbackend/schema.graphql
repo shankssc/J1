@@ -1,15 +1,10 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY {
-  globalAuthRule: AuthRule = { allow: public }
-} # FOR TESTING ONLY!
-type Todo @model {
+type Todo @model @auth(rules: [{allow: private}]) {
   id: ID!
   name: String!
   description: String
 }
 
-type Business @model @auth(rules: [{ allow: owner }]) {
+type Business @model @auth(rules: [{allow: owner}, {allow: private, provider: iam}]) {
   id: ID!
   name: String!
   menu: [MenuItem]
@@ -23,7 +18,7 @@ type Business @model @auth(rules: [{ allow: owner }]) {
   lastName: String
 }
 
-type MenuItem @model @auth(rules: [{ allow: owner }]) {
+type MenuItem @model @auth(rules: [{allow: owner}]) {
   name: String!
   price: Float!
   description: String
@@ -32,3 +27,4 @@ type MenuItem @model @auth(rules: [{ allow: owner }]) {
   picture: String
   type: String
 }
+ 

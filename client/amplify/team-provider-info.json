@@ -19,7 +19,7 @@
         "j1eatsbackend": {}
       },
       "storage": {
-        "appDataStore": {}
+        "UserContent": {}
       }
     }
   }

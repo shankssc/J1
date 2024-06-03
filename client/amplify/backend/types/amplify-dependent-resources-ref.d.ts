@@ -20,13 +20,9 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "appDataStore": {
-      "Arn": "string",
-      "Name": "string",
-      "PartitionKeyName": "string",
-      "PartitionKeyType": "string",
-      "Region": "string",
-      "StreamArn": "string"
+    "UserContent": {
+      "BucketName": "string",
+      "Region": "string"
     }
   }
 }

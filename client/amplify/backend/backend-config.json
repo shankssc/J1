@@ -12,7 +12,11 @@
       ],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
@@ -64,9 +68,10 @@
     }
   },
   "storage": {
-    "appDataStore": {
+    "UserContent": {
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
-      "service": "DynamoDB"
+      "service": "S3"
     }
   }
 }

@@ -20,6 +20,7 @@ import {
         Datepicker
         } from '@ui-kitten/components';
 import { useForm, Controller } from "react-hook-form";
+import { useSelector } from 'react-redux';
 
 import Styles from './Business.styles';
 import { createNewBusiness } from './Business.API';
@@ -29,10 +30,12 @@ import CustomModal from '../../components/Modal';
 import globalStyle from '../../styles/globalStyle';
 import { BusinessParameters } from '../Screens.types';
 import { CreateBusinessInput } from '../../API';
+import { selectUser } from '../../reducers/user';
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import { Amplify } from 'aws-amplify';
+
 import { getCurrentUser } from 'aws-amplify/auth';
+import { uploadData } from 'aws-amplify/storage'
 
 const Business = ({ navigation }:any):React.ReactElement => {
 
@@ -64,7 +67,7 @@ const Business = ({ navigation }:any):React.ReactElement => {
         }
     }
 
-    const currentUser = currentAuthenticatedUser()
+    const currentUser = useSelector(selectUser)
 
     const selectFile = () => {
         launchImageLibrary({mediaType: 'photo'}, (response) => {
@@ -87,11 +90,24 @@ const Business = ({ navigation }:any):React.ReactElement => {
         const businessDetails: CreateBusinessInput = {
             ...data,
             picture: imageUri,
-            email: await currentUser,
+            email: currentUser.email,
         }
         try {
+            //@ts-ignore
+            const extension = imageUri? imageUri.split('.').pop() : '';
             const newBusiness = await createNewBusiness(businessDetails);
+            const identityId = currentAuthenticatedUser()
+
+            if (imageUri) {
+                const result = await uploadData({
+                    path:  `public/${identityId}/cover.${extension}`,
+                    data: imageUri,
+    
+                }).result
+                console.log('Image upload succeeded: ', result);
+            }
             console.log('Business created:', newBusiness);
+            
             toggleSuccessModal();
         } catch (error:any) {
             console.error('Error creating business:', error);
@@ -212,7 +228,7 @@ const Business = ({ navigation }:any):React.ReactElement => {
                         name="type"
                 />
                 
-                <Button style={Styles.button} onPress={() => {}}>
+                <Button style={Styles.button} onPress={handleSubmit(onSubmit)}>
                         <Text style={Styles.buttonText}>SUBMIT</Text>
                 </Button>
                 </Card>
