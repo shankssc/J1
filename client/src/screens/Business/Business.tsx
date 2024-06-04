@@ -88,24 +88,22 @@ const Business = ({ navigation }:any):React.ReactElement => {
     }
 
     const onSubmit = async (data:BusinessParameters) => {
+        //@ts-ignore
+        const extension = imageUri? imageUri.split(';')[0].split('/')[1] : '';
+        const path = `public/${currentUser.email}/cover.${extension}`;
         const businessDetails: CreateBusinessInput = {
             ...data,
-            picture: imageUri,
+            picture: path,
             email: currentUser.email,
         }
         try {
-            //@ts-ignore
-            const extension = imageUri? imageUri.split(';')[0].split('/')[1] : '';;
+            
             //@ts-ignore
             const binaryData = Buffer.from(imageUri.split(',')[1], 'base64');
             const newBusiness = await createNewBusiness(businessDetails);
             
 
             if (imageUri) {
-                console.log('Current user email:', currentUser.email);
-                const path = `public/${currentUser.email}/cover.${extension}`;
-                console.log('Upload path:', path);
-                console.log("current image", imageUri)
                 const result = await uploadData({
                     // path:  path,
                     key: path,
