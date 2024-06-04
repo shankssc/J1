@@ -5,10 +5,10 @@
 
 ## 📖 Table of Contents
 
-    - [About](#📝-about)
-    - [Tech Stack](#💻-tech-stack)
-    - [Screenshots](#📸-screenshots)
-    - [Overview](#📚-overview)
+- [About](#📝-about)
+- [Tech Stack](#💻-tech-stack)
+- [Screenshots](#📸-screenshots)
+- [Overview](#📚-overview)
 
 ## 📝 About
 
