@@ -13,23 +13,27 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 
 import { generateClient } from 'aws-amplify/api';
-import { createTodo } from './src/graphql/mutations';
-import { listTodos } from './src/graphql/queries';
+// import { createTodo } from './src/graphql/mutations';
+// import { listTodos } from './src/graphql/queries';
 
-import { withAuthenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+import { Authenticator, withAuthenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from './src/amplifyconfiguration.json';
 import 'react-native-url-polyfill/auto';
 import 'react-native-get-random-values';
 import { nanoid } from 'nanoid';
 import { Provider, useSelector } from 'react-redux';
-import store from './src/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store, persistor} from './src/store';
+import { ThemeContext } from './theme-context';
 import { selectUser } from './src/reducers/user';
 
 import Home from './src/screens/Home/Home';
 import SignUp from './src/screens/Auth/SignUp';
 import SignIn from './src/screens/Auth/SignIn';
 import Verification from './src/screens/Auth/Verification';
+import Profile from './src/screens/Profile/Profile';
+import Business from './src/screens/Business/Business';
 
 Amplify.configure(amplifyconfig);
 
@@ -75,7 +79,13 @@ const App = () => {
   const [formState, setFormState] = useState<Todo>(initialState);
   const [todos, setTodos] = useState<Todo[]>([]);
   const user = useSelector(selectUser);
+  const [theme, setTheme] = React.useState('light');
   
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+  };
+
   /*
   useEffect(() => {
     fetchTodos();
@@ -146,18 +156,22 @@ const App = () => {
   */
   
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ApplicationProvider {...eva} theme={eva[theme]}>
       <NavigationContainer>
-          <Stack.Navigator initialRouteName=/*{user.email ? 'Home' : 'SignUp'}*/"Home">
+          <Stack.Navigator initialRouteName={user.email ? 'Home' : 'SignIn'}/*"Business"*/>
             
                 <Stack.Screen name='Home' component={Home} />
                 <Stack.Screen name='SignUp' component={SignUp} />
                 <Stack.Screen name='SignIn' component={SignIn} />
                 <Stack.Screen name='Verify' component={Verification} />
+                <Stack.Screen name='Profile' component={Profile}/>
+                <Stack.Screen name='Business' component={Business}/>
 
           </Stack.Navigator>
         </NavigationContainer>
     </ApplicationProvider>
+    </ThemeContext.Provider>
   );
 };
 
@@ -165,7 +179,9 @@ const App = () => {
 const AppWrapper = () => {
   return (
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <App />
+      </PersistGate>
     </Provider>
   );
 };

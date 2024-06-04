@@ -24,4 +24,20 @@ export type EmailVerification = {
   verification_number_5: string;
   verification_number_6: string;
 }
-  
+
+export type GeoLocation = {
+      latitude: null;
+      longitude: null;
+}
+
+export type BusinessParameters = {
+  name: string;
+  cusineType: string[];
+  address: string;
+  email: string;
+  phone: string;
+  picture: string;
+  type: string;
+  firstName: string;
+  lastName: string
+}

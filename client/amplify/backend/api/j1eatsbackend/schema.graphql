@@ -1,0 +1,30 @@
+type Todo @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Business @model @auth(rules: [{allow: owner}, {allow: private, provider: iam}]) {
+  id: ID!
+  name: String!
+  menu: [MenuItem]
+  cusineType: [String!]
+  address: String!
+  email: String
+  phone: String
+  picture: String
+  type: String
+  firstName: String
+  lastName: String
+}
+
+type MenuItem @model @auth(rules: [{allow: owner}]) {
+  name: String!
+  price: Float!
+  description: String
+  calories: String!
+  tags: [String!]
+  picture: String
+  type: String
+}
+ 

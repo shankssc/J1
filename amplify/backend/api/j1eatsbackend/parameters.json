@@ -1,5 +1,0 @@
-{
-  "AppSyncApiName": "j1eatsbackend",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
-}
