@@ -1,4 +1,5 @@
 import React from 'react';
+import {Buffer} from 'buffer';
 import { TouchableWithoutFeedback, 
     ScrollView, 
     KeyboardAvoidingView,
@@ -94,14 +95,21 @@ const Business = ({ navigation }:any):React.ReactElement => {
         }
         try {
             //@ts-ignore
-            const extension = imageUri? imageUri.split('.').pop() : '';
+            const extension = imageUri? imageUri.split(';')[0].split('/')[1] : '';;
+            //@ts-ignore
+            const binaryData = Buffer.from(imageUri.split(',')[1], 'base64');
             const newBusiness = await createNewBusiness(businessDetails);
-            const identityId = currentAuthenticatedUser()
+            
 
             if (imageUri) {
+                console.log('Current user email:', currentUser.email);
+                const path = `public/${currentUser.email}/cover.${extension}`;
+                console.log('Upload path:', path);
+                console.log("current image", imageUri)
                 const result = await uploadData({
-                    path:  `public/${identityId}/cover.${extension}`,
-                    data: imageUri,
+                    // path:  path,
+                    key: path,
+                    data: binaryData,
     
                 }).result
                 console.log('Image upload succeeded: ', result);
